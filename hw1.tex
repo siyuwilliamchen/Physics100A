@@ -1,0 +1,161 @@
+\documentclass{article}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{physics}
+
+\usepackage{mathtools}
+
+\newcommand\perm[2][^n]{\prescript{#1\mkern-2.5mu}{}P_{#2}}
+\newcommand\comb[2][^n]{\prescript{#1\mkern-0.5mu}{}C_{#2}}
+
+\DeclareMathOperator{\spn}{span}
+
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+
+\title{HW\#2 Physics 100A}
+\date{6/28/2023}
+\author{William Chen 3619053} 
+\begin{document}
+
+\maketitle
+ 
+\section*{Boas Chapter 3, Section 7, Pages 130} 
+ 
+Are the following operators linear? 
+ 
+\paragraph{Problems 9}  Find the square; operate on numbers or on functions.
+
+\begin{proof}
+First, the condition for operators $A$ from $V \to V$ to be linear is
+
+\begin{align*}
+A \ket{ \alpha \vec{v} + \lambda \vec{w}} = \alpha A \ket{\vec{v}} + \lambda A \ket{ \vec{w}}
+\end{align*}
+
+For the case on numbers, let $P : \mathbb{F} \to \mathbb{F} : P(a) = a^2$
+
+\begin{align*}
+P(ax + by) &= (ax + by)^2 = a^2 x^2 + 2axby + b^2 y^2 \\
+aP(x) + bP(y) &= ax^2 + by^2
+\end{align*}
+
+Therefore LHS $\neq$ RHS, $P$ is not a linear operator.
+
+For the case on functions, the square of the function can be defined to the composition of the function with itself. The square of a function is only defined if the co-domain is also the domain, in other words, when the function is an operator.
+
+Let $P: V \to V: P(f) = f \circ f$ where $V$ is the set of all operators of set $A$.
+
+\begin{align*}
+P(\alpha f + \lambda g) &= (alpha f + \lambda g) \circ (alpha f + \lambda g) 
+\\ &= \alpha^2 f \circ f + \alpha \lambda f \circ g + \alpha \lambda g \circ f + \lambda^2 g \circ g\\
+\alpha P(f) + \lambda P(g) &= \alpha f \circ f + \lambda g \circ g
+\end{align*}
+ 
+Therefore LHS $\neq$ RHS, $P$ is not a linear operator.
+
+Therefore finding square is not a linear operator for numbers and functions.
+
+\end{proof}
+
+\paragraph{Problem 13}
+
+Let $W = \{f : \mathbb{C} \to \mathbb{C} \}$, let $D = \{W \to W : Df = \frac{d}{dx} f(x)\}$
+
+(a) As in Problem 12, is $D^2 + 2D + 1$ linear?
+\begin{proof}
+Let $P : W \to W : P = D^2 + 2D + 1$.
+
+\begin{align*}
+P (\alpha f + \lambda g) &= \frac{d^2}{dx^2} (\alpha f + \lambda g) + \frac{d}{dx}  (\alpha f + \lambda g) +  \alpha f + \lambda g
+\\ &= \alpha \frac{d^2}{dx^2} f + 2 \alpha \frac{d}{dx} f + \alpha f + \lambda \frac{d^2}{dx^2} g + 2 \lambda \frac{d}{dx} g + \alpha f + \lambda g
+\\ \alpha P(f) + \lambda P(g)& = \alpha (\frac{d^2}{dx^2} f + \frac{d}{dx} f + f) + \lambda (\frac{d^2}{dx^2} g + \frac{d}{dx} g + g)
+\end{align*}
+
+Therefore LHS = RHS, $D^2 + 2D + 1$ is linear.
+\end{proof}
+
+(b) Is $x^2 D^2 - 2xD + 7$ a linear operator?
+
+\begin{proof}
+
+Let $P : W \to W : P = x^2 D^2 - 2xD + 7$
+
+\begin{align*}
+P(\alpha f + \lambda g) &= x^2 \frac{d^2}{dx} (\alpha f + \lambda g) - 2x (\alpha f + \lambda g) + 7(\alpha f + \lambda g) \\
+\alpha P(f) + \lambda P(g) &= \alpha (x^2 \frac{d^2}{dx^2} f - 2x \frac{d}{dx} f + 7f) + \lambda (x^2 \frac{d^2}{dx^2} g - 2x \frac{d}{dx} g + 7g)
+\end{align*}
+
+Expanding, we would obtain that LHS = RHS, therefore $x^2 D^2 - 2xD + 7$ is linear.
+
+\end{proof}
+
+\paragraph{Problem 14}
+
+\begin{proof}
+Find the maximum; operate on functions of x.
+
+Let $W = \{f : [a, b] \times i[c, d] \to \mathbb{C} \}$, Let $P : W \to W : W(f) = f_{max}$
+
+Consider $f, g \in W$ such that
+
+\begin{align*}
+f(x) = \begin{cases}
+1 (x = 3)\\
+0 (x \neq 3)
+\end{cases}
+g(x) = \begin{cases}
+1 (x = 1)\\
+0 (x \neq 1)
+\end{cases}
+\end{align*}
+
+The maximum value for $(\alpha f + \lambda g)$ depends on whether $\alpha$ is greater than $\lambda$, as the greater value would be the maximum value over the interval as every other value is 0.
+
+\begin{align*}
+P(\alpha f + \lambda g) &= \max{(\alpha, \lambda)} \\
+\alpha P(f) + \lambda P(g) &= \alpha + \lambda
+\end{align*}
+
+Therefore LHS $\neq$ RHS, the maximum operator is not linear.
+\end{proof}
+
+\paragraph{Problem 16}
+\begin{proof}
+
+Find the inverse; operate on square matrices.
+
+Let $P$ be an operator on all invertible square matrices such that $P(A) = A^{-1}$ where $A^{-1} A = I$.
+
+\begin{align*}
+P(\alpha A + \beta B) &= (\alpha A + \beta B)^{-1} \\
+\alpha P(A) + \beta P(B) &= \alpha A^{-1} + \beta B^{-1}
+\end{align*}
+
+The two terms are not equal in general. A quick counter example is if $A = I, B = I$, following, $(\alpha A + \beta B)$ would have diagonal entries of $\alpha + \beta$, therefore an elementary matrix of scaling by $\frac{1}{\alpha + \beta}$ would be its inverse. For the second case, since $A^{-1} = I, B^{-1} = I$, $\alpha A^{-1} + \beta B^{-1}$ is a matrix of diagonal entries of $\alpha + \beta$, which is clearly different than the first case. Therefore the inverse operator for square matrices is not linear.
+
+\end{proof}
+\section*{Section 14, Page 184}
+
+For each of the following sets, either verify (as in Example 1) that it is a vector space,
+or show which requirements are not satisfied. If it is a vector space, find a basis and the
+dimension of the space.
+
+\paragraph{Problem 2}
+Linear combinations of the set of functions ${e^x, \sinh x, xe^x}$.
+
+\paragraph{Problem 8}
+Polynomials of degree $\leq 7$ but with all odd powers missing.
+
+\end{document}

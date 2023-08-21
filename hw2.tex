@@ -1,0 +1,257 @@
+\documentclass{article}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{physics}
+
+\usepackage{mathtools}
+
+\newcommand\perm[2][^n]{\prescript{#1\mkern-2.5mu}{}P_{#2}}
+\newcommand\comb[2][^n]{\prescript{#1\mkern-0.5mu}{}C_{#2}}
+
+\DeclareMathOperator{\spn}{span}
+
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+
+\title{HW\#2 Physics 100A}
+\date{6/28/2023}
+\author{William Chen 3619053} 
+\begin{document}
+
+\maketitle
+ 
+\section*{Boas Chapter 3, Section 7, Pages 130} 
+ 
+Are the following operators linear? 
+ 
+\paragraph{Problems 9}  Find the square; operate on numbers or on functions.
+
+\begin{proof}
+First, the condition for operators $A$ from $V \to V$ to be linear is
+
+\begin{align*}
+A \ket{ \alpha \vec{v} + \lambda \vec{w}} = \alpha A \ket{\vec{v}} + \lambda A \ket{ \vec{w}}
+\end{align*}
+
+For the case on numbers, let $P : \mathbb{F} \to \mathbb{F} : P(a) = a^2$
+
+\begin{align*}
+P(ax + by) &= (ax + by)^2 = a^2 x^2 + 2axby + b^2 y^2 \\
+aP(x) + bP(y) &= ax^2 + by^2
+\end{align*}
+
+Therefore LHS $\neq$ RHS, $P$ is not a linear operator.
+
+For the case on functions, the square of the function can be defined to the composition of the function with itself. The square of a function is only defined if the co-domain is also the domain, in other words, when the function is an operator.
+
+Let $P: V \to V: P(f) = f \circ f$ where $V$ is the set of all operators of set $A$.
+
+\begin{align*}
+P(\alpha f + \lambda g) &= (alpha f + \lambda g) \circ (alpha f + \lambda g) 
+\\ &= \alpha^2 f \circ f + \alpha \lambda f \circ g + \alpha \lambda g \circ f + \lambda^2 g \circ g\\
+\alpha P(f) + \lambda P(g) &= \alpha f \circ f + \lambda g \circ g
+\end{align*}
+ 
+Therefore LHS $\neq$ RHS, $P$ is not a linear operator.
+
+Therefore finding square is not a linear operator for numbers and functions.
+
+\end{proof}
+
+\paragraph{Problem 13}
+
+Let $W = \{f : \mathbb{C} \to \mathbb{C} \}$, let $D = \{W \to W : Df = \frac{d}{dx} f(x)\}$
+
+(a) As in Problem 12, is $D^2 + 2D + 1$ linear?
+\begin{proof}
+Let $P : W \to W : P = D^2 + 2D + 1$.
+
+\begin{align*}
+P (\alpha f + \lambda g) &= \frac{d^2}{dx^2} (\alpha f + \lambda g) + \frac{d}{dx}  (\alpha f + \lambda g) +  \alpha f + \lambda g
+\\ &= \alpha \frac{d^2}{dx^2} f + 2 \alpha \frac{d}{dx} f + \alpha f + \lambda \frac{d^2}{dx^2} g + 2 \lambda \frac{d}{dx} g + \alpha f + \lambda g
+\\ \alpha P(f) + \lambda P(g)& = \alpha (\frac{d^2}{dx^2} f + \frac{d}{dx} f + f) + \lambda (\frac{d^2}{dx^2} g + \frac{d}{dx} g + g)
+\end{align*}
+
+Therefore LHS = RHS, $D^2 + 2D + 1$ is linear.
+\end{proof}
+
+(b) Is $x^2 D^2 - 2xD + 7$ a linear operator?
+
+\begin{proof}
+
+Let $P : W \to W : P = x^2 D^2 - 2xD + 7$
+
+\begin{align*}
+P(\alpha f + \lambda g) &= x^2 \frac{d^2}{dx} (\alpha f + \lambda g) - 2x (\alpha f + \lambda g) + 7(\alpha f + \lambda g) \\
+\alpha P(f) + \lambda P(g) &= \alpha (x^2 \frac{d^2}{dx^2} f - 2x \frac{d}{dx} f + 7f) + \lambda (x^2 \frac{d^2}{dx^2} g - 2x \frac{d}{dx} g + 7g)
+\end{align*}
+
+Expanding, we would obtain that LHS = RHS, therefore $x^2 D^2 - 2xD + 7$ is linear.
+
+\end{proof}
+
+\paragraph{Problem 14}
+
+\begin{proof}
+Find the maximum; operate on functions of x.
+
+Let $W = \{f : [a, b] \times i[c, d] \to \mathbb{C} \}$, Let $P : W \to W : W(f) = f_{max}$
+
+Consider $f, g \in W$ such that
+
+\begin{align*}
+f(x) = \begin{cases}
+1 (x = 3)\\
+0 (x \neq 3)
+\end{cases}
+g(x) = \begin{cases}
+1 (x = 1)\\
+0 (x \neq 1)
+\end{cases}
+\end{align*}
+
+The maximum value for $(\alpha f + \lambda g)$ depends on whether $\alpha$ is greater than $\lambda$, as the greater value would be the maximum value over the interval as every other value is 0.
+
+\begin{align*}
+P(\alpha f + \lambda g) &= \max{(\alpha, \lambda)} \\
+\alpha P(f) + \lambda P(g) &= \alpha + \lambda
+\end{align*}
+
+Therefore LHS $\neq$ RHS, the maximum operator is not linear.
+\end{proof}
+
+\paragraph{Problem 16}
+\begin{proof}
+
+Find the inverse; operate on square matrices.
+
+Let $P$ be an operator on all invertible square matrices such that $P(A) = A^{-1}$ where $A^{-1} A = I$.
+
+\begin{align*}
+P(\alpha A + \beta B) &= (\alpha A + \beta B)^{-1} \\
+\alpha P(A) + \beta P(B) &= \alpha A^{-1} + \beta B^{-1}
+\end{align*}
+
+The two terms are not equal in general. A quick counter example is if $A = I, B = I$, following, $(\alpha A + \beta B)$ would have diagonal entries of $\alpha + \beta$, therefore an elementary matrix of scaling by $\frac{1}{\alpha + \beta}$ would be its inverse. For the second case, since $A^{-1} = I, B^{-1} = I$, $\alpha A^{-1} + \beta B^{-1}$ is a matrix of diagonal entries of $\alpha + \beta$, which is clearly different than the first case. Therefore the inverse operator for square matrices is not linear.
+
+\end{proof}
+\section*{Section 14, Page 184}
+
+For each of the following sets, either verify (as in Example 1) that it is a vector space,
+or show which requirements are not satisfied. If it is a vector space, find a basis and the
+dimension of the space.
+
+\paragraph{Problem 2}
+Linear combinations of the set of functions ${e^x, \sinh x, xe^x}$.
+
+Let $S = \{ ae^x + b\sinh x + xe^x\}$
+
+Let $\vec{v}, \vec{w} \in S, \vec{v} = a e^x + b \sinh x + c xe^x, \vec{w} = \alpha e^x + \beta \sinh x + \gamma xe^x$ be elements of the set of linear combinations of the functions given. 
+
+Consider if $\vec{v} + \vec{w} \in S$ to see if $S$ is closed under addition.
+
+\begin{align*}
+\vec{v} + \vec{w} = (a+\alpha) e^x + (b + \beta) \sinh x + (c + \gamma) xe^x = a_f e^x + b_f \sinh + c_f + xe^x
+\end{align*}
+
+Where $a_f = a + \alpha, b_f = b+\beta, c_f = c + \gamma$. $\vec{v} + \vec{w} \in S$, it is indeed closed under addition.
+
+Consider if $\lambda \vec{v} \in S$
+
+\begin{align*}
+\lambda \vec{v} = (\lambda a)e^x + (\lambda b) \sinh x + (\lambda c) xe^x
+\end{align*}
+
+$\lambda \vec{v} \in S$, it is closed under scalar multiplication, $S$ is a vector space.
+
+Consider if $\{e^x, \sinh x, xe^x\}$ are independent:
+
+\begin{align*}
+ae^x + b \sinh x + c xe^x = 0 \\
+a e^x + \frac{b}{2} (e^x - e^{-x}) + c xe^x = 0
+\end{align*}
+
+Since $e^x \neq 0$, divide by $e^x$ on both sides.
+
+\begin{align*}
+(a + \frac{b}{2}) e^x - \frac{b}{2} e^{-x} + c xe^x = 0 \\
+(a + \frac{b}{2}) - \frac{b}{2} e^{-2x} + cx = 0
+\end{align*}
+
+Since this has to hold for all x, let $x = 0$
+
+\begin{align*}
+(a+\frac{b}{2} - \frac{b}{2} = 0 \\
+a = 0
+\end{align*}
+
+then let $x = 1$ and remove $a$
+
+\begin{align*}
+\frac{b}{2} - \frac{b}{2} e^{-2} + c = 0 \\
+c = \frac{b}{2}(e^{-2}-1)
+\end{align*}
+
+then let $x = -1$,
+
+\begin{align*}
+\frac{b}{2} - \frac{b}{2} e^2 - c = 0 \\
+c = \frac{b}{2} (e^2 - 1)
+\end{align*}
+
+Combining the results, we have
+
+\begin{align*}
+\frac{b}{2} (e^{-2}-1) = \frac{b}{2} (e^2-1) \\
+\frac{b}{2} (e^2 - e^{-2}) = 0 \\
+(e^2 - e^{-2}) \neq 0, \Rightarrow \frac{b}{2} = 0
+\end{align*}
+
+As a result, $b = 0, c = 0$, the list is independent.
+
+Since the span of the list of vectors is the set of all linear combinations by the definition of span, this is a spanning and independent list of the vector space, therefore a basis, and the cardinality of the list is 3, so the dimension of $S$ is 3. One basis is $\{ e^x, \sinh x, xe^x\}$.
+
+\paragraph{Problem 8}
+Polynomials of degree $\leq 7$ but with all odd powers missing.
+
+Let the described set be $S = \{ a + bx^2 + cx^4 + dx^6 \}$
+
+Consider if $\alpha \vec{v} + \beta \vec{w} \in S$ to show both closure in addition and scalar multiplication:
+
+\begin{align*}
+\alpha \vec{v} + \beta \vec{w} &= \alpha (a_1 + b_1 x^2 + c_1 x^4 + d_1 x^6) + \beta (a_2 + b_2 x^2 + c_2 x^4 + d_2 x^6) \\
+&= (\alpha a_1 + \beta a_2) + (\alpha b_1 + \beta b_2) x^2 + (\alpha c_1 + \beta c_2) x^4 + (\alpha d_1 + \beta d_2) x^6
+\end{align*}
+
+$\alpha \vec{v} + \beta \vec{w} \in S$, therefore $S$ is a vector space.
+
+$\{1, x^2, x^4, x^6\}$ is a list that spans the vector space by the definition of $S$, now let's consider if it is independent.
+
+\begin{align*}
+a + bx^2 + cx^4 + dx^6 = 0
+\end{align*}
+
+This has to hold for all $x$, so let $x = 0$, we obtain $a = 0$, now remove $a$ and let $x = 1, \sqrt{2}, \sqrt{3}$ respectively
+
+\begin{align*}
+b + c + d = 0 \\
+2b + 4c + 8d = 0 \\
+3b + 9c + 27d = 0
+\end{align*}
+
+The solution to this system of equation is $b = 0, c = 0, d = 0$.
+
+Therefore $\{1, x^2, x^4, x^6\}$ is a basis since it is independent and spanning. The dimension of $S$ is the same as the cardinality of this list, which is $4$.
+
+\end{document}

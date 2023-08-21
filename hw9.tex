@@ -1,0 +1,190 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{physics}
+
+\usepackage{mathtools}
+
+\newcommand{\set}[1]{\{#1\}}
+\newcommand{\FT}{\mathcal{F}}
+\newcommand\perm[2][^n]{\prescript{#1\mkern-2.5mu}{}P_{#2}}
+\newcommand\comb[2][^n]{\prescript{#1\mkern-0.5mu}{}C_{#2}}
+
+\DeclareMathOperator{\spn}{span}
+
+\numberwithin{equation}{section}
+
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\title{PHYS100A HW9}
+\author{Siyu Chen}
+\date{July 2023}
+
+\begin{document}
+
+\maketitle
+
+\section{Section 4, Page 569: problem 4}
+
+\begin{proof}
+To show that, if $m<l$
+
+\begin{align}
+    \int_{-1}^{1} x^m P_l(x) dx = 0
+\end{align}
+
+Hint: Use Rodrigues’ formula (4.1) and integrate repeatedly by parts, differentiating the power of x and integrating the derivative each time.
+
+
+Rodrigues' formula states that 
+
+\begin{align}
+    P_l (x) = \frac{1}{2^l l!} \frac{d^l}{dx^l} (x^2 - 1)^l
+\end{align}
+
+Then, given that $m<l$, (1.1) becomes
+
+\begin{align}
+    \frac{1}{2^l l!} \int_{-1}^{1} x^m \frac{d^l}{dx^l} (x^2 - 1)^l
+\end{align}
+
+Using integration by parts, let $u = x^m, du = m x^{m-1} dx, v = \frac{d^{l-1}}{dx^{l-1}}(x^2-1)^l, dv = \frac{d^l}{dx^l} (x^2 - 1)^l dx$. Let's evaluate the integral first
+
+\begin{align}
+    &= x^m  \frac{d^{l-1}}{dx^{l-1}}(x^2-1)^l - m\int_{-1}^{1} x^{m-1}\frac{d^{l-1}}{dx^{l-1}}(x^2-1)^l  dx \\
+    &= x^m \frac{d^{l-1}}{dx^{l-1}}(x^2-1)^l - m x^{m-1} \frac{d^{l-2}}{dx^{l-2}} (x^2-1)^l + m(m-1) x^{m-2} \frac{d^{l-3}}{dx^{l-3}} (x^2-1)^l + \ldots \vert^{1}_{-1} \\
+    & = 0
+\end{align}
+
+Of course, we can evaluate each term because this is not an infinite series and terminates at the terms of $\frac{d^{l-m}}{dx^{l-m}}$. Since it is obvious that when evaluated from 1 to -1, all of the terms go to 0 since $(x^2-1)^l$ no matter the exponent have values of 0 at $x = 1, -1$. 
+
+
+\end{proof}
+
+
+
+\section{Section 5, Page 573: problem 2}
+
+Verify (2.1) using (2.2)
+
+(2.1) states:
+
+\begin{align}
+    (1-x^2) \frac{\partial^2 \Phi}{\partial x^2} - 2x \frac{\partial \Phi}{\partial x} + h \frac{\partial^2}{\partial h^2} (h \Phi) = 0
+\end{align}
+
+(2.2) states 
+
+\begin{align}
+    \Phi(x,h) = (1- 2xh + h^2)^{-\frac{1}{2}}, \abs{h} < 1
+\end{align}
+
+Let's compute all of the partial derivatives in (2.1)
+
+\begin{align}
+    \frac{\partial \Phi}{\partial x} &= -\frac{1}{2} (1-2xh+h^2)^{-\frac{3}{2}} (-2h) \\
+    \frac{\partial^2 \Phi}{\partial x^2} &= \frac{3}{4}(1-2xh+h^2)^{-\frac{5}{2}} (-2h)^2 \\
+    \frac{\partial^2}{\partial h^2} (h\Phi) &= 2\frac{\partial \Phi}{\partial h} + h \frac{\partial^2 \Phi}{\partial h^2} \\
+    \frac{\partial \Phi}{\partial h} &= -\frac{1}{2}(1-2xh+h^2)^{-\frac{3}{2}} (-2x + 2h) \\
+    \frac{\partial^2 \Phi}{\partial h^2} &= -(1-2xh+h^2)^{-\frac{3}{2}} + \frac{3}{4}(1-2xh+h^2)^{-\frac{5}{2}}(2h-2x)^2
+\end{align}
+
+Notice that all terms have a common term of $(1-2xh+h^2)^{-\frac{3}{2}}$, so we can divide it away. We don't have to worry about division by 0 because if that term is 0, then (2.1) would just be true anyways due to multiplication by 0. (2.1) therefore becomes:
+
+\begin{align}
+    &\frac{3h^2 (1-x^2)}{1-2xh+h^2} - 2xh + 2xh - 2h^2 - h^2  + h^2 \frac{3}{4} \frac{(2h-2x)^2}{1-2xh+h^2} \\
+    &= \frac{3h^2(1-x^2)+ 3 h^2(h^2 -2hx+x^2)}{1-2xh+h^2} - 3h^2 \\
+    &= \frac{3h^2(h^2 - 2hx + 1)}{h^2-2xh+1} - 3h^2\\
+    &=  3h^2 - 3h^2 = 0
+\end{align}
+
+And indeed (2.1) is true.
+
+\section{Section 5, Page 573: problem 10}
+
+Express the polynomial $x^4$ as linear combinations of Legendre polynomials.
+
+Take $P_4 = \frac{1}{8} (35 x^4 - 30x^2 + 3)$ to eliminate the highest order term of $x^4$. Consider $x^4 - \frac{8}{35} P_4$
+
+\begin{align}
+    x^4 - \frac{8}{35} P_4 =x^4 - x^4 + \frac{6}{7} x^2 - \frac{3}{35} = \frac{6}{7} x^2 - \frac{3}{35}
+\end{align}
+
+Take the remainder polynomial, eliminate the highest order term $\frac{6}{7} x^2$ with $P_2$, consider $\frac{6}{7} x^2 - \frac{3}{35} - \frac{12}{21}P_2$:
+
+\begin{align}
+    \frac{6}{7}x^2 - \frac{3}{35} - \frac{6}{7} x^2 + \frac{8}{7} = \frac{37}{35}
+\end{align}
+
+and we can eliminate the last term with $\frac{37}{35}P_0$. Therefore we can write $x^4$ as
+
+\begin{align}
+    x^4 = \frac{8}{35} P_4 + \frac{4}{7} P_2 + \frac{37}{35} P_0
+\end{align}
+
+
+\section{Section 9, page 581: problem 5}
+
+Expand the following function in Legendre series:
+
+\begin{align}
+    f(x) = \begin{cases}
+        1 + x   \quad    ( -1 \leq x \leq 0) \\
+        1 - x   \quad    (0 \leq x \leq 1)
+    \end{cases}
+\end{align}
+
+we put 
+
+\begin{align}
+    f(x)  = \sum_{l=0}^{\infty} c_l P_l(x)
+\end{align}
+
+and we have the following relation from the textbook to find $c_m$
+
+\begin{align}
+    \int_{-1}^{1} f(x) P_m(x)dx = \sum_{l=0}^{\infty} c_l \int_{-1}^{1} P_l(x) P_m(x) dx = c_m \cdot \frac{2}{2m+1 }
+\end{align}
+
+
+Rearranging, our constants can be written as the following:
+
+\begin{align}
+    c_m = \frac{2m+1}{2} \int_{-1}^{1} f(x) P_m(x)dx
+\end{align}
+
+Also, note that our function is even, we can neglect the odd terms as they will be 0. We can find our first constant by
+
+\begin{align}
+    &\int_{-1}^{1} f(x) P_0 dx = \int_{-1}^{0} (1+x)dx + \int_{0}^{1} (1-x) dx = \frac{1}{2} + \frac{1}{2} =1\\
+    &c_0 = \frac{1}{2} 1 = \frac{1}{2}
+\end{align}
+
+Note, we can further simplify because the function is even and therefore we only have to do one integral and double it.
+
+\begin{align}
+    c_2 &= 5 \int_{0}^{1} (1-x) P_2(x) dx = 5 \int_{0}^{1} (1-x) \frac{1}{2}(3x^2-1) = -\frac{5}{8} \\
+    c_4 &= 9 \int_{0}^{1} (1-x) P_4(x) dx = 9 \int_{0}^{1} (1-x) \frac{1}{8} (35x^4 - 30x^2 + 3) = \frac{9}{48} \\
+    c_6 &= 13 \int_{0}^{1} (1-x) P_5(x) dx = - \frac{13}{128}
+\end{align}
+
+so our expansion is:
+
+\begin{align}
+    f(x) = \frac{1}{2}P_0(x) - \frac{5}{8} P_1(x) + \frac{3}{16} P_2(x) - \frac{13}{128} P_4(x) + \ldots
+\end{align}
+
+
+\end{document}

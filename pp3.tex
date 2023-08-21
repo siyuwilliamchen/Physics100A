@@ -1,0 +1,104 @@
+\documentclass{article}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{physics}
+
+\usepackage{mathtools}
+
+\newcommand\perm[2][^n]{\prescript{#1\mkern-2.5mu}{}P_{#2}}
+\newcommand\comb[2][^n]{\prescript{#1\mkern-0.5mu}{}C_{#2}}
+
+\DeclareMathOperator{\spn}{span}
+
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+
+\title{Problem Presentation \#3 Physics 100A}
+\date{7/14/2023}
+\author{William Chen 3619053} 
+\begin{document}
+
+\maketitle
+
+\paragraph{Section 10, page 147: problem 7}
+Show that, in $n$-dimensional space, any $n + 1$ vectors are linearly dependent.
+
+
+\paragraph{(i) Introduction} 
+
+This problem is pretty straightforward. We have to show that $n+1$ vectors in an $n$ dimensional vector space have to be linearly dependent. However, proving it without using the properties of a basis requires a little bit more thought. I chose to present this problem because I think the proof that I came up with was quite interesting.
+
+We're only going to use the following theorem relating basis and vector space without proving them: All finite dimensional vectors spaces have basis with amount of vectors equal to their dimension.
+
+\paragraph{(ii) Relationship to course material.}
+
+The concept of linear independence is quite crucial to this course. It is fundamental to describe a lot of other properties of a vector field, such as dimensions. Since we discuss concepts like eigenvectors and eigenvalues quite often, this is a good basic concept to be familiar with.
+
+\paragraph{(iii) Steps to solve the problem}
+
+\begin{proof}
+Suuppose we have a list of vectors $S = \{\vec{v}_1, \vec{v}_2 \ldots \vec{v}_n, \vec{v}_{n+1} \} \in V$, where $V$ is a $n$-dimensional space and the list $S$ is independent. Since $V$ is a finite dimensional vector space, it must have a basis with a list whose cardinality is equal to the dimension of the vector space. Let $B = \{ \vec{b}_1, \vec{b}_2 ,\ldots \vec{b}_n \}$ be a basis in $V$.
+
+Then, let's consider since $\spn(B) = V, \vec{v}_1 \in V \Rightarrow \vec{v}_1 \in \spn(B), $
+
+This can be written as 
+
+\begin{align*}
+\vec{v}_1 = \sum_{k=1}^{n} a_k \vec{b}_k
+\end{align*}
+
+Since the vector $\vec{v}_1$ is not zero, otherwise the list $S$ would not be independent, then at least one of the $a_k$ has to be non-zero. WLOG, we can call that term $a_k \vec{b}_k$ as $a_1 \vec{b}_1$ as the basis is not ordered. Then we can manipulate the equation algebraically to obtain
+
+\begin{align*}
+\vec{b}_1 = \frac{1}{a_1}(\vec{v}_1 - \sum_{k=2}^{n} a_k \vec{b}_k)
+\end{align*}
+
+Now $\vec{b}_1$ is in the linear combination of $\vec{v}_1$ and the rest of the basis. This is our base case that $\spn{\{\vec{v}_1, \vec{b}_2 ,\ldots , \vec{b}_n\}} = V$
+
+To continue, we have to show that assume that $\spn{\{ \vec{v}_1 \ldots, \vec{v}_i , \vec{b}_{i+1}, \ldots, \vec{b}_n \}}=V$ is true and see that it implies $\spn{\{ \vec{v}_1 \ldots, \vec{v}_{i+1} , \vec{b}_{i+2}, \ldots, \vec{b}_n \}}=V$.
+
+Since $\spn{\{ \vec{v}_1 \ldots, \vec{v}_i , \vec{b}_{i+1}, \ldots, \vec{b}_n \}}=V$, consider $\vec{v}_{i+1}$, we can write it as
+
+\begin{align*}
+\vec{v}_{i+1} = c_1 \vec{v}_1 + \ldots + c_i \vec{v}_{i} + \sum_{k=i+1}^{n} a_k \vec{b}_k
+\end{align*}
+
+but still, at least one constant in the remaining $a_k$ must be zero, otherwise we would violate the independence of vectors $\vec{v}$ as $\vec{v}_{i+1}$ is written as a linear combination of all of the vectors before it. So then, we can do the same process and WLOG name a non-zero $a_k \vec{b}_k$ term as $a_{i+2} \vec{b}_{i+2}$.
+
+\begin{align*}
+\vec{b}_{i+2} = \frac{1}{a_{i+2}}(\vec{v}_{i+2} - c_{i+1} \vec{v}_{i+1} - \ldots - c_1 \vec{v}_1 - \sum_{k=i+3}^{n} a_k \vec{b}_k)
+\end{align*}
+
+which shows that indeed, $\vec{b}_{i+2}$ is in the span of all of the vectors in $S$ up to $\vec{v}_{i+2}$ and the remainder of the basis, therefore, this implies $\spn{\{ \vec{v}_1 \ldots, \vec{v}_{i+1} , \vec{b}_{i+2}, \ldots, \vec{b}_n \}}=V$
+
+Then, we can use induction and we have proved that the following is true:
+
+\begin{align*}
+\spn{\{ \vec{v}_1 \ldots, \vec{v}_{n} \}} = V
+\end{align*}
+
+Since for any independent list of $n+1$ elements, the first $n$ elements must hold true to the above, then we can say that $\vec{v}_{n+1} \in V \Rightarrow \vec{v}_{n+1} \in \spn{\{ \vec{v}_1 \ldots, \vec{v}_{n} \}} \Rightarrow \vec{v}_{n+1}$ is not linearly independent to $\{ \vec{v}_1 \ldots, \vec{v}_{n} \}$. Therefore we have a contradiction, and indeed such list of $11$ vectors cannot be independent, and therefore must be dependent.
+
+
+\end{proof}
+
+\paragraph{(iv) Solution Summary}
+
+The proof is tedious, but does not involve any other property of the basis other than the property that a finite dimensional vector space must have a basis. It uses a combination of algebra to show that any 10 independent vectors would span the entire space of $V$, and we show that by borrowing an existing basis and substitute in elements from our vectors one by one until we have shown that our 10 vectors also span $V$. Finally, since the 10 vectors span $V$, and the 11 vectors is in $V$, they cannot be linearly independent.
+
+\paragraph{(v) Notes on method}
+Initially approaching this problem, I considered using a simple proof stating that, since a independent list of vectors has the same cardinality as the dimension of the space, then the list must be spanning and therefore a basis, but it just felt like circular reasoning since we could probably deduct that result using this, more appropriately. Then I ran into problems of actually coming up with a solution without using properties of a basis other than its spanning and independent definition, and then I came up with this. There is definitely simpler ways of doing this, but I like this one because it feels quite unique.
+
+
+\end{document}

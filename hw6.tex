@@ -1,0 +1,428 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{physics}
+
+\usepackage{mathtools}
+
+\newcommand{\Set}[1]{\{#1\}}
+\newcommand{\FT}{\mathcal{F}}
+\newcommand\perm[2][^n]{\prescript{#1\mkern-2.5mu}{}P_{#2}}
+\newcommand\comb[2][^n]{\prescript{#1\mkern-0.5mu}{}C_{#2}}
+
+\DeclareMathOperator{\spn}{span}
+
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+
+
+\title{PHYS 100A HW\#6}
+\author{Siyu Chen}
+\date{July 2023}
+
+\begin{document}
+
+\maketitle
+
+\paragraph{Shankar QM: Exercise 1.8.5 (page 42)}
+
+Consider the matrix\begin{align*}
+\Omega = \begin{pmatrix}
+\cos \theta & \sin \theta \\ -\sin \theta & \cos \theta
+\end{pmatrix}
+\end{align*}
+
+\textbf{(1) Show that it is unitary.}
+\begin{proof}
+    Consider the expression $\Omega \Omega^\dagger$. If this expression is the identity, then $\Omega$ is unitary. Since $\Omega$ is all real, the complex conjugate of the matrix is just the transpose
+
+    \begin{align}
+        \Omega^\dagger = \Omega^T = \begin{pmatrix}
+            \cos \theta & -\sin \theta \\ \sin \theta & \cos \theta 
+        \end{pmatrix}
+    \end{align}
+    Then compute the product 
+
+    \begin{align}
+        \Omega^\dagger \Omega = \begin{pmatrix}
+            \cos^2 \theta + \sin^2 \theta & \cos \theta \sin \theta - \sin\theta \cos\theta \\ \cos \theta \sin \theta - \sin\theta \cos\theta & \cos^2 \theta + \sin^2 \theta
+        \end{pmatrix} = I
+    \end{align}
+    Indeed, we see that the matrix $\Omega$ is unitary.
+\end{proof}
+
+\textbf{(2) Show that its eigenvalues are $e^{i\theta}$ and $e^{-i\theta}$.}
+
+\begin{proof}
+    To find the eigenvalues, consider its characteristics equation:
+    \begin{align}
+        &(\cos\theta - \lambda)^2 + \sin^2 \theta = 0 \\
+        &1 - 2 \cos \theta \lambda + \lambda^2 = 0 \\
+    \end{align}
+
+    Using Euler's formula, and find the definition of the trig functions in terms of the complex exponential and use (5), we have
+    \begin{align}
+        (e^{i\theta} + e^{-i\theta}) \lambda - \lambda^2 = 1
+    \end{align}
+
+    Since this is really in the form of $ (S + \frac{1}{S})\lambda - \lambda^2 = 1$. We can see that solution to $\lambda$ should either be $S$ or $\frac{1}{S}$ since the $\lambda$ will multiply its inverse and make 1 and the other term will result in $\lambda^2$ and cancel out. Therefore the solutions for $\lambda$ is $e^{i\theta}$ and $e^{-i\theta}$
+\end{proof}
+
+\textbf{(3) Find the corresponding eigenvectors; show that they are orthogonal.}
+
+The corresponding eigenvector for the eigenvalue $\lambda = e^{i\theta}$ can be given by this linear equation:
+
+\begin{align}
+    (\cos \theta - e^{i\theta}) x_1 + \sin \theta x_2 = 0
+\end{align}
+
+Consider the term $(\cos \theta - e^{i\theta})$. Since $\cos \theta = \frac{e^{i\theta}+e^{-i\theta}}{2}$ and $\sin \theta = \frac{e^{i\theta}-e^{-i\theta}}{2i}$, we have
+
+\begin{align}
+    \cos \theta - e^{i\theta} = \frac{-e^{i\theta} + e^{-i\theta}}{2} = -i \sin \theta 
+\end{align}
+
+now back to (7), we can cancel out the $\sin \theta$, the equation becomes
+
+\begin{align}
+    -i x_1 + x_2 = 0 \Rightarrow i x_1 = x_2
+\end{align}
+
+and the associating eigenvector is $\ket{v_1} = \begin{pmatrix}
+    i \\ 1
+\end{pmatrix}$
+
+For the corresponding eigenvector for the eigenvalue $e^{-i\theta}$, we use the linear equation:
+
+\begin{align}
+    (\cos \theta - e^{-i\theta}) x_1 + \sin \theta x_2 = 0
+\end{align}
+
+Then let's consider the term before $x_1$
+\begin{align}
+    \cos \theta - e^{-i\theta} = \frac{e^{i\theta}-e^{-i\theta}}{2} = i \sin \theta 
+\end{align}
+
+Then canceling out the $\sin \theta$, (10) is just 
+
+\begin{align}
+    i x_1 + x_2 = 0 \Rightarrow -ix_1 = x_2
+\end{align}
+
+with corresponding eigenvector $\ket{v_2} = \begin{pmatrix}
+    -i \\ 1
+\end{pmatrix}$
+
+
+\begin{proof}
+    To show the orthogonality, we have to show that $\bra{v_1}\ket{v_2} = 0$. The inner product is just the dot product.
+    \begin{align}
+        \bra{v_1}\ket{v_2} = \begin{pmatrix}
+            -i & 1
+        \end{pmatrix} \begin{pmatrix}
+            -i \\ 1
+        \end{pmatrix} =  i^2 + 1 = 0
+    \end{align}
+
+    Indeed, the two vectors are orthogonal.
+\end{proof}
+
+\textbf{(4) Verify that $U^\dagger \Omega U = $(diagonal matrix), where the $U$ is the matrix of eigenvectors of $\Omega$.}
+
+\begin{proof}
+    The matrix of eigenvectors $U$ and its complex conjugate is
+    \begin{align}
+        U = \begin{pmatrix}
+        i & -i \\ 1 & 1
+        \end{pmatrix}
+        U^\dagger = \begin{pmatrix}
+            -i & 1 \\ i & 1
+        \end{pmatrix}
+    \end{align}
+
+    Then to show that $U^\dagger \Omega U$ is a diagonal matrix. We have:
+    \begin{align}
+        &U^\dagger \Omega U = \begin{pmatrix}
+         -i & 1 \\ i & 1
+        \end{pmatrix}
+        \begin{pmatrix}
+\cos \theta & \sin \theta \\ -\sin \theta & \cos \theta
+        \end{pmatrix}
+        \begin{pmatrix}
+        i & -i \\ 1 & 1
+        \end{pmatrix}  \\
+        &= \begin{pmatrix}
+            -i \cos \theta - \sin \theta & -i \sin \theta + \cos \theta \\ i \cos \theta - \sin \theta & i\sin \theta + \cos \theta 
+        \end{pmatrix} \begin{pmatrix}
+        i & -i \\ 1 & 1
+        \end{pmatrix} \\
+        &= \begin{pmatrix}
+        i(-i \cos \theta - \sin \theta) + (-i \sin \theta + \cos \theta)  &
+        (-i)(-i \cos \theta - \sin \theta) + -i \sin \theta + \cos \theta  \\
+        i(i \cos \theta - \sin \theta) + i\sin \theta + \cos \theta  &
+        (-i)(i \cos \theta - \sin \theta) + i\sin \theta + \cos \theta 
+        \end{pmatrix} \\
+        &= \begin{pmatrix}
+            2\cos \theta - 2i \sin \theta & 0 \\
+            0 &  2\cos \theta + 2i \sin \theta
+        \end{pmatrix}
+    \end{align}
+    which is indeed a diagonal matrix. 
+\end{proof}
+
+
+\paragraph{Additional Problem D1}
+
+\textbf{(a) Show that if $A$ and $B$ are linear operators on some complex vector space, then their adjoints satisfy} \begin{align*}
+(\alpha A + \beta B)^\dagger =\alpha^* A^\dagger + \beta^* B^\dagger
+\end{align*} \textbf{where $\alpha$ and $\beta$ are complex numbers.}
+
+\begin{proof}
+    Since $(\alpha A + \beta B)^\dagger$ is a linear operator such that 
+    \begin{align}
+        (\bra{v} \alpha A + \beta B \ket{w})^\dagger = \bra{w} (\alpha A + \beta B)^\dagger \ket{v}
+    \end{align}
+    Consider the LHS without the dagger operator, we have 
+    \begin{align}
+        \bra{v} \alpha A + \beta B \ket{w} = \alpha \bra{v} A \ket{w} + \beta \bra{v} B \ket{w}
+    \end{align}
+    by linearity. And then we take the complex conjugate of this expression, we take out the constant and distribute by linearity.
+    \begin{align}
+        (\bra{v} \alpha A + \beta B \ket{w})^* &= \alpha^* \bra{v} A \ket{w}^* +\beta^* \bra{v} B \ket{w}^*
+    \end{align}
+
+    Then, by the definition of adjoint operators that $\bra{c} A^\dagger \ket{a} = \bra{a} A \ket{c}^*$ from our lecture
+    \begin{align}
+        (\bra{v} \alpha A + \beta B \ket{w})^* &= \alpha^* \bra{v} A \ket{w}^* +\beta^* \bra{v} B \ket{w}^* \\
+        &= \alpha^* \bra{w}A^\dagger \ket{v} + \beta^* \bra{w}B^\dagger\ket{v}
+    \end{align}
+    Then reconstruct by linearity, we have 
+    \begin{align}
+        (\bra{v} \alpha A + \beta B \ket{w})^*&= \bra{w}\alpha^* A^\dagger \ket{v} +  \bra{w}\beta^*B^\dagger\ket{v} \\
+        &= \bra{w} \alpha^* A^\dagger + \beta^* B^\dagger \ket{v}
+    \end{align}
+    Since this is equal to the RHS by the definition of the dagger map of the entire operator, we have
+    \begin{align}
+        \bra{w} \alpha^* A^\dagger + \beta^* B^\dagger \ket{v} = \bra{w} (\alpha A + \beta B)^\dagger \ket{v} \\
+        \alpha^* A^\dagger + \beta^* B^\dagger = (\alpha A + \beta B)^\dagger
+    \end{align}
+\end{proof}
+
+\textbf{(b) The exponential of an operator $A$ is defined as}
+\begin{align*}
+e^A = \sum_{n=0}^{\infty} \frac{A^n}{n!} = I + A + \frac{A^2}{2} + \ldots
+\end{align*}
+\textbf{where it is assumed that the series converges. Show that if $H$ is a Hermitian operator, then the operator $U = e^{iH}$ is unitary.}
+
+\begin{proof}
+    Consider the adjoint of the operator $U$. Since 
+    \begin{align}
+        U = e^{iH} = I + iH + \frac{i^2 H^2}{2!} + \frac{i^3H}{3!} + \ldots
+    \end{align}
+    The adjoint of this operator can be written by the following. Notice that the adjoint of $H$ is itself, since it is Hermitian, we just take the complex conjugate of every term.
+    \begin{align}
+        U^\dagger = I^\dagger - iH + \frac{i^2 H^2}{2!} - \frac{i^3H^3}{3!} + \ldots = e^{-iH}
+    \end{align}
+    Since the complex conjugate for the constant flips the sign of every odd term, as $i$ would have an odd power at that term, this is the expression for $e^{-iH}$. Therefore we can say the following:
+    \begin{align}
+        UU^\dagger = e^{iH} e^{-iH} = I
+    \end{align}
+    And show that $U$ is unitary. Note: we can say that $e^{iH} e^{-iH} = I$ because all non-identity terms cancel out multiplicatively in the product, it does not depend on the actual content of $H$, so while we have shown that for matrices, the $e^a e^b = e^{a+b}$ is not true for general, in this case, this is true in general.
+\end{proof}
+
+\paragraph{Additional Problem D2}
+\textbf{Consider the linear vector space $V$ of complex-valued, linear functions of the real variable $x$, defined on the interval $0 \leq x \leq 1$. Note: elements of this space are linear functions, which means they can be written in the form $\ket{f}=f(x)=ax+b$, where $a$ and $b$ are complex numbers. This implies that the monomials $\ket{x_0}=1$ and $\ket{x_1}=x$ together form a basis of this space. }
+
+\textbf{(a) Define an inner product of the form}
+\begin{align*}
+    \bra{f}\ket{g} = \int_0^1 x(1-x)f^*(x)g(x)dx
+\end{align*}
+\textbf{Starting with the basis $\{\ket{x_0}, \ket{x_1}$ and use the Gram-Schmidt method to construct an orthonormal basis $\{\ket{e_0}, \ket{e_1}\}$ for this space. }
+
+Take $\ket{e'_0} = \ket{x_0} = 1$. Take $\ket{e'_1} = \ket{x_1} - \beta_{10} \ket{e'_0}$. 
+
+Take 
+\begin{align}
+\beta_{10} = \frac{\bra{e'_0}\ket{x_1}}{\bra{e'_0}\ket{e'_0}}
+= \frac{\int_0^1 x(1-x)xdx}{\int_0^1 x(1-x)dx} = \frac{1}{12}6 = \frac{1}{2}
+\end{align}
+
+So $\ket{e'_1} = x - \frac{1}{2}$
+
+And finally, normalizing, we have
+
+\begin{align}
+    \ket{e_0} &= \frac{1}{\sqrt{\bra{e'_0}\ket{e'_0}}} \ket{e'_0} =  \frac{1}{\sqrt{\int_0^1 x(1-x)dx}} = \sqrt{6} \\
+    \ket{e_1} &= \frac{1}{\sqrt{\bra{e'_1}\ket{e'_1}}} \ket{e'_1} = \frac{1}{\sqrt{\int_0^1 (x-\frac{1}{2})^2 x(1-x)dx}} (x-\frac{1}{2})= \sqrt{120} (x - \frac{1}{2})
+\end{align}
+
+So our orthonormal basis is $\Set{\sqrt{6}, \sqrt{120}(x - \frac{1}{2})}$
+
+
+\textbf{(b) What is the matrix that describes the transformation from the original basis $\{\ket{x_0}, \ket{x_1}\}$ to the new basis? Is this matrix unitary? Why or why not?}
+
+Since we have 
+\begin{align}
+    \ket{e_0} &= \sqrt{6} \ket{x_0} + 0 \ket{x_1} \\
+    \ket{e_1} &= -\sqrt{120}\frac{1}{2} \ket{x_0} + \sqrt{120} \ket{x_1}
+\end{align}
+
+The change of basis matrix is then
+
+\begin{align}
+    R = \begin{pmatrix}
+        \sqrt{6} & -\sqrt{30} \\ 0 &  2\sqrt{30}
+    \end{pmatrix}
+\end{align}
+
+To consider if it's unitary, consider
+
+\begin{align}
+    RR^\dagger &= \begin{pmatrix}
+        \sqrt{6} & -\sqrt{30} \\ 0 &  2\sqrt{30}
+    \end{pmatrix} \begin{pmatrix}
+        \sqrt{6} & 0 \\ -\sqrt{30}  &  2\sqrt{30}
+    \end{pmatrix} \\
+    &= \begin{pmatrix}
+        36 & -60 \\ -60  & 120
+    \end{pmatrix}
+\end{align}
+$R$ is not unitary. It is not because only the change of basis matrix from one orthonormal matrix to another is unitary. In this case, we transform from a non-onrthonormal basis to a orthonormal one, therefore it is not unitary.
+
+
+\textbf{(c) Determine the matrix representation of the linear operator $L = 2i\frac{d}{dx}$ in the new basis. Is the operator $L$ Hermitian? Is the operator $L$ unitary? Is the operator $L$ singular?}
+
+Apply $L$ onto our orthonormal basis:
+
+\begin{align}
+    L(\ket{e_1}) &= 4\sqrt{30}i \frac{d}{dx}x - 2\sqrt{30}i \frac{d}{dx} 1  = 4\sqrt{30}i = 4 \sqrt{5}i \ket{e_0} \\
+    L(\ket{e_0}) &= 2i \frac{d}{dx} \sqrt{6} = 0
+\end{align}
+
+Therefore the associated matrix is 
+
+\begin{align}
+    M = \begin{pmatrix}
+        0 & 4\sqrt{5}i \\
+        0 & 0
+    \end{pmatrix}
+\end{align}
+
+Since $M$ is obviously not Hermitian (the transpose conjugate of $4\sqrt{5}i$ cannot be 0, and not unitary (the matrix is not invertible since it has a row of 0s), and singular (again, the matrix is not invertible), and our basis is an orthonormal basis, we can say that $L$ is not Hermitian, not unitary and singular.
+
+\paragraph{Additional Problem E1}
+
+\textbf{You are given a pair of equations:}
+\begin{align*}
+    A \ket{f_j} = \lambda_j \ket{g_j} \\
+    A^T \ket{g_j} = \lambda_j \ket{f_j}
+\end{align*}
+\textbf{where A is a real, nonsingular $n \times n$ matrix, and $A^T$ is the transpose of $A$. The sets of vectors $\{\ket{f_j}\}$ and corresponding $\{\ket{g_j}\}$ each consist of $n$ column vectors, each of which has $n$ elements. The $n$ values of $\{\lambda_j\}$ are all nonzero and different from one another. The $n$ values of $\{\lambda^2_j\}$ are also all nonzero and different from one another. You may take as the inner product the usual inner product for complex vectors.}
+
+\textbf{(a). Prove that $\ket{f_j}$ is an eigenvector of $(A^TA)$ with eigenvalue $\lambda^2_j$, and that $\ket{g_j}$ is an eigenvector of $(A A^T)$ with eigenvalue $\lambda^2_j$. }
+
+\begin{proof}
+    First, for utility, write the original equations and their adjoint, Since $A^T$ is a real matrix, its adjoint is just its transpose:
+    \begin{align}
+        A \ket{f_j} = \lambda_j \ket{g_j} \\
+        \bra{f_j} A^T = \bra{g_j} \lambda^*_j \\
+        A^T \ket{g_j} = \lambda_j \ket{f_j} \\
+        \bra{g_j} A = \bra{f_j} \lambda^*_j 
+    \end{align}
+    Consider $A^TA \ket{f_j}$, from (42), we can have
+    \begin{align}
+        A^TA \ket{f_j} = A^T(A\ket{f_j} = A^T \lambda_j \ket{g_j}
+    \end{align}
+    Then from (44), we have
+    \begin{align}
+        A^TA \ket{f_j} = \lambda_j (A^T \ket{g_j}) = \lambda^2_j \ket{f_j}
+    \end{align}
+    Therefore we can see that indeed $\lambda^2_j$ is an eigenvalue of the eigenvector $\ket{f_j}$ for $A^T A$
+    
+    Going the other way, consider the value of $AA^T \ket{g_j}$. From (44) and (42), we have
+    \begin{align}
+        AA^T \ket{g_j} = A \lambda_j \ket{f_j} = \lambda_j (\lambda_j \ket{g_j}) = \lambda^2_j \ket{g_j}
+    \end{align}
+    Indeed $\lambda^2_j$ is an eigenvalue of the eigenvector $\ket{g_j}$ for $A^T A$
+\end{proof}
+
+\textbf{(b). State why each of the following statements is true and justify your answer:}
+
+Since $(A^TA)^T = A^T {A^T}^T = A^T A$ shows that $(A^TA)$ is a Hermitian matrix and $(AA^T) = {A^T}^T A^T = AA^T$ shows that $(AA^T)$ is also a Hermitian matrix. With $\Set{\ket{f_j}}$ and $\Set{\ket{g_j}}$ normalized to unity, they each form an orthonormal basis since they are the eigenvectors of their corresponding Hermitian matrix by the Spectral Theorem for Hermitian Operators. In this case, the eigenvectors is not necessarily normalized, but they must be orthogonal.
+
+\textbf{(i) The $\{\ket{f_j}\}$ form an orthogonal set.}
+
+Since $\Set{\ket{f_j}}$ can form an orthonormal basis with normalizing, they must be orthogonal.
+
+\textbf{(ii) The $\{\ket{g_j}\}$ form an orthogonal set.}
+
+Since $\Set{\ket{g_j}}$ can form an orthonormal basis with normalizing, they must be orthogonal.
+
+\textbf{(iii) The $\{\lambda^2_j\}$ are real.}
+Since $AA^T$ and $A^TA$ are Hermitian, we can say that
+
+Expanding on (48), if we apply $\bra{g_j}$, we have
+
+\begin{align}
+    \bra{g_j} AA^T \ket{g_j }= \bra{g_j} \lambda^2_j \ket{g_j}
+\end{align}
+
+Then we take the adjoint on both sides, we have 
+
+\begin{align}
+    \bra{g_j} (AA^T)^T \ket{g_j } = \bra{g_j} AA^T \ket{g_j } = \bra{g_j} (\lambda^2_j)^* \ket{g_j}
+\end{align}
+
+Since we can see that this is equal to the original expression, we can say that 
+\begin{align}
+    &\bra{g_j} (\lambda^2_j)^* \ket{g_j} = \bra{g_j} \lambda^2_j \ket{g_j} \\
+    &\lambda^2_j = (\lambda^2_j)^*
+\end{align}
+Therefore $\{\lambda^2_j\}$ are real
+
+\textbf{(c). Prove that A can be written as}
+\begin{align*}
+    A = \sum_{j=1}^n \lambda_j \ket{g_j} \bra{f_j}
+\end{align*}
+\textbf{with the $\{\ket{f_j}\}$ and the $\{\ket{g_j}\}$ normalized to unity}
+Now with the $\{\ket{f_j}\}$ and the $\{\ket{g_j}\}$ normalized to unity, they become orthonormal basis for their own matrix. By the spectral decomposition of Hermitian (really, normal matrices), we can see that since
+
+\begin{align}
+    IAA^TI &= \ket{f_i}\bra{f_i} AA^T \ket{f_j} \bra{f_j } = \ket{f_i}\bra{f_i} \lambda^2_j \ket{f_j} \bra{f_j } \\
+    &=\lambda^2_j \ket{f_i} \delta_{ij} \bra{f_j} = \lambda^2_j \ket{f_j} \bra{f_j} = A^TA
+\end{align}
+and similarly, without going over the entire proof
+\begin{align}
+    AA^T = \lambda^2_j \ket{g_j} \bra{g_j}
+\end{align}
+From (54) and (55), and since our two eigenvectors are orthonormal, therefore the inner product with themselves is just the identity, we can further show that
+\begin{align}
+    A^T A &=\lambda_j^2 \ket{f_j} \bra{g_j} \ket{g_j} \bra{f_j} \\
+    AA^T &=\lambda_j^2 \ket{g_j} \bra{f_j} \ket{f_j} \bra{g_j}
+\end{align}
+
+And since $\lambda_j$ is real, so $\lambda^* = \lambda$, and $A$ is real, so $A^\dagger = A^T$, we can further show that 
+
+\begin{align}
+    A^T A &= (\ket{f_j} \lambda_j \bra{g_j})(\ket{g_j} \lambda_j \bra{f_j}) = (\ket{g_j} \lambda_j \bra{f_j})^T (\ket{g_j} \lambda_j \bra{f_j}) \\
+    AA^T &= (\ket{g_j} \lambda_j \bra{f_j})(\ket{g_j} \lambda_j \bra{f_j})^T
+\end{align}
+Therefore we can see that 
+\begin{align}
+    A = \ket{g_j} \lambda_j \bra{f_j}
+\end{align}
+
+
+\end{document}

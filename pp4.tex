@@ -1,0 +1,167 @@
+\documentclass{article}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{physics}
+
+\usepackage{mathtools}
+
+\newcommand\perm[2][^n]{\prescript{#1\mkern-2.5mu}{}P_{#2}}
+\newcommand\comb[2][^n]{\prescript{#1\mkern-0.5mu}{}C_{#2}}
+
+\DeclareMathOperator{\spn}{span}
+
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+
+\title{Problem Presentation \#4 Physics 100A}
+\date{7/21/2023}
+\author{William Chen 3619053} 
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+\paragraph{Additional Problem E1 from HW6}
+
+You are given a pair of equations:
+\begin{align*}
+    A \ket{f_j} = \lambda_j \ket{g_j} \\
+    A^T \ket{g_j} = \lambda_j \ket{f_j}
+\end{align*}
+where A is a real, nonsingular $n \times n$ matrix, and $A^T$ is the transpose of $A$. The sets of vectors $\{\ket{f_j}\}$ and corresponding $\{\ket{g_j}\}$ each consist of $n$ column vectors, each of which has $n$ elements. The $n$ values of $\{\lambda_j\}$ are all nonzero and different from one another. The $n$ values of $\{\lambda^2_j\}$ are also all nonzero and different from one another. You may take as the inner product the usual inner product for complex vectors.
+
+(a). Prove that $\ket{f_j}$ is an eigenvector of $(A^TA)$ with eigenvalue $\lambda^2_j$, and that $\ket{g_j}$ is an eigenvector of $(A A^T)$ with eigenvalue $\lambda^2_j$.
+
+(b). State why each of the following statements is true and justify your answer:
+
+(i) The $\{\ket{f_j}\}$ form an orthogonal set.
+
+(ii) The $\{\ket{g_j}\}$ form an orthogonal set.
+
+(iii) The $\{\lambda^2_j\}$ are real.
+
+(c). Prove that A can be written as
+\begin{align*}
+    A = \sum_{j=1}^n \lambda_j \ket{g_j} \bra{f_j}
+\end{align*}
+with the $\{\ket{f_j}\}$ and the $\{\ket{g_j}\}$ normalized to unity
+
+
+This problem asks for us to show that given our conditions where $\{\ket{f_j}\}$ and $\{\ket{g_j}\}$ are eigenvectors for matrices $A$ and $A^T$ sharing eigenvalues of $\{\lambda_j\}$, that they are also eigenvectors of $A^TA$ and $AA^T$ sharing the eigenvalues of $\{\lambda^2_j\}$. Furthermore, the problem asks us to further prove and verify that the two sets of eigenvectors are orthogonal, the eigenvalues are real, and that the original operator can be written as \begin{align*}
+    A = \sum_{j=1}^n \lambda_j \ket{g_j} \bra{f_j}
+\end{align*}
+ 
+
+\section{Relation to Course Material}
+
+Part (a) consists of practice of using proofs in eigenvalue and eigenvector questions, which we have covered in this class. And the later parts essentially asks us to practice the spectral decomposition of normal vectors, since the result in (b) is true because we have to show that the eigenvectors can form an orthonormal basis by the spectral decomposition theorem, and part (c) is true for normal vectors in general as shown in the lecture notes. This problem let's us to take a proof-based approach to apply what we learned in those lectures.
+
+\section{Steps to solve the problem}
+
+Part (a)
+\begin{proof}
+    First, for utility, write the original equations. Note: since $A^T$ is a real matrix, its adjoint is just its transpose:
+    \begin{align}
+        A \ket{f_j} = \lambda_j \ket{g_j} \\
+        A^T \ket{g_j} = \lambda_j \ket{f_j} \\
+    \end{align}
+    Consider $A^TA \ket{f_j}$, from (1), we can have
+    \begin{align}
+        A^TA \ket{f_j} = A^T(A\ket{f_j} = A^T \lambda_j \ket{g_j}
+    \end{align}
+    Then from (2), we have
+    \begin{align}
+        A^TA \ket{f_j} = \lambda_j (A^T \ket{g_j}) = \lambda^2_j \ket{f_j}
+    \end{align}
+    Therefore we can see that indeed $\lambda^2_j$ is an eigenvalue of the eigenvector $\ket{f_j}$ for $A^T A$
+    
+    Going the other way, consider the value of $AA^T \ket{g_j}$. From (1) and (2), we have
+    \begin{align}
+        AA^T \ket{g_j} = A \lambda_j \ket{f_j} = \lambda_j (\lambda_j \ket{g_j}) = \lambda^2_j \ket{g_j}
+    \end{align}
+    Indeed $\lambda^2_j$ is an eigenvalue of the eigenvector $\ket{g_j}$ for $A^T A$
+\end{proof}
+
+Part (b)
+
+Since $(A^TA)^T = A^T {A^T}^T = A^T A$ shows that $(A^TA)$ is a Hermitian matrix and $(AA^T) = {A^T}^T A^T = AA^T$ shows that $(AA^T)$ is also a Hermitian matrix. With $\{\ket{f_j}\}$ and $\{\ket{g_j}\}$ normalized to unity, they each form an orthonormal basis since they are the eigenvectors of their corresponding Hermitian matrix by the Spectral Theorem for Hermitian Operators. In this case, the eigenvectors is not necessarily normalized, but they must be orthogonal.
+
+(i)
+
+Since $\{\ket{f_j}\}$ can form an orthonormal basis with normalizing, they must be orthogonal.
+
+(ii)
+
+Since $\{\ket{g_j}\}$ can form an orthonormal basis with normalizing, they must be orthogonal.
+
+(iii)
+Since $AA^T$ and $A^TA$ are Hermitian, we can say that
+
+Expanding on (48), if we apply $\bra{g_j}$, we have
+
+\begin{align}
+    \bra{g_j} AA^T \ket{g_j }= \bra{g_j} \lambda^2_j \ket{g_j}
+\end{align}
+
+Then we take the adjoint on both sides, we have 
+
+\begin{align}
+    \bra{g_j} (AA^T)^T \ket{g_j } = \bra{g_j} AA^T \ket{g_j } = \bra{g_j} (\lambda^2_j)^* \ket{g_j}
+\end{align}
+
+Since we can see that this is equal to the original expression, we can say that 
+\begin{align}
+    &\bra{g_j} (\lambda^2_j)^* \ket{g_j} = \bra{g_j} \lambda^2_j \ket{g_j} \\
+    &\lambda^2_j = (\lambda^2_j)^*
+\end{align}
+Therefore $\{\lambda^2_j\}$ are real
+
+Part (c)
+
+Now with the $\{\ket{f_j}\}$ and the $\{\ket{g_j}\}$ normalized to unity, they become orthonormal basis for their own matrix. By the spectral decomposition of Hermitian (really, normal matrices), we can see that since
+
+\begin{align}
+    IAA^TI &= \ket{f_i}\bra{f_i} AA^T \ket{f_j} \bra{f_j } = \ket{f_i}\bra{f_i} \lambda^2_j \ket{f_j} \bra{f_j } \\
+    &=\lambda^2_j \ket{f_i} \delta_{ij} \bra{f_j} = \lambda^2_j \ket{f_j} \bra{f_j} = A^TA
+\end{align}
+and similarly, without going over the entire proof
+\begin{align}
+    AA^T = \lambda^2_j \ket{g_j} \bra{g_j}
+\end{align}
+From (54) and (55), and since our two eigenvectors are orthonormal, therefore the inner product with themselves is just the identity, we can further show that
+\begin{align}
+    A^T A &=\lambda_j^2 \ket{f_j} \bra{g_j} \ket{g_j} \bra{f_j} \\
+    AA^T &=\lambda_j^2 \ket{g_j} \bra{f_j} \ket{f_j} \bra{g_j}
+\end{align}
+
+And since $\lambda_j$ is real, so $\lambda^* = \lambda$, and $A$ is real, so $A^\dagger = A^T$, we can further show that 
+
+\begin{align}
+    A^T A &= (\ket{f_j} \lambda_j \bra{g_j})(\ket{g_j} \lambda_j \bra{f_j}) = (\ket{g_j} \lambda_j \bra{f_j})^T (\ket{g_j} \lambda_j \bra{f_j}) \\
+    AA^T &= (\ket{g_j} \lambda_j \bra{f_j})(\ket{g_j} \lambda_j \bra{f_j})^T
+\end{align}
+Therefore we can see that 
+\begin{align}
+    A = \ket{g_j} \lambda_j \bra{f_j}
+\end{align}
+\section{Solution Summary}
+
+The problem consists of mostly straightforward proofs. Part (a) walks through the questions given to obtain the result we want. Part (b), (c) once we use spectral decomposition the result is straightforward from the necessary condition that the normalized eigenvectors are orthonormal and the completeness relation can be used to solve (c). 
+
+\section{Notes on method}
+
+Our method is mainly using constructive proofs to show the results that we want. There are a few things to keep in mind like it is important to show that $A^TA$ is Hermitian for part (b) and on to work, but other than that, it is mostly straightforward.
+
+\end{document}

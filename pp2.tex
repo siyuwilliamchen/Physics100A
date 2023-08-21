@@ -1,0 +1,194 @@
+\documentclass{article}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{physics}
+
+\usepackage{mathtools}
+
+\newcommand\perm[2][^n]{\prescript{#1\mkern-2.5mu}{}P_{#2}}
+\newcommand\comb[2][^n]{\prescript{#1\mkern-0.5mu}{}C_{#2}}
+
+\DeclareMathOperator{\spn}{span}
+
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+
+\title{HW\#2 Physics 100A}
+\date{6/28/2023}
+\author{William Chen 3619053} 
+\begin{document}
+
+\maketitle
+ 
+\section*{Section 15, page 184: problem 34}
+
+In problems 6.30 and 6.31, you found the matrices $e^A$ and $e^C$ (put $k = 1$) where $A$
+and C are the Pauli matrices from Problem 6.6. Now find the matrix $(A+C)$ and its
+powers and so find the matrix $e^{A+C}$ to show that $e^{A+C} \neq e^A e^C$. See Problem 6.29.
+
+\paragraph{(i) Introduction} 
+
+We have been extending the definition of different functions, like trigonometric and exponential functions, originally defined to the domain of complex numbers, to certain operators like square matrices. This is possible because of their Taylor expansion and since the powers of the matrices are well defined, this is then possible.
+
+We are examining the exponential function of two specific matrices, $A$ and $C$ from the Pauli spin matrices. The Pauli spin matrices are
+
+\begin{align*}
+A = \begin{pmatrix}
+0 & 1 \\ 1 & 0
+\end{pmatrix}, 
+B = \begin{pmatrix}
+0 & -i \\ i & 0
+\end{pmatrix},
+C = \begin{pmatrix}
+1 & 0 \\ 0 & -1
+\end{pmatrix}
+\end{align*}
+
+As we have seen from previous materials, they have the property of being involutory, or that the square of $A$ and $C$ are identity matrix. This would be useful as the expansion of the exponential function involves the powers of the matrices.
+
+\paragraph{(ii) Relationship to course material.} 
+
+This is relevant to the course material, as we see, that some properties that hold true for real and complex numbers would not necessarily still be true for the case of matrices. In this case, we're discussing the property that for all complex numbers $z_1, z_2, e^{z_1 + z_2} = e^{z_1}e^{z_2}$. As it turns out that this property is not true in general for square matrices, or that for any two matrices $A$ and $C$, $e^{A+C} \neq e^Ae^C$ in general. And in this case, we can show this by selecting the specific Pauli spin matrices $A$ and $C$ to show that this property is not true in general for square matrices.
+
+\paragraph{(iii) Steps to solve the problem}
+	
+\begin{proof}
+
+We have to show that $e^{A+C} \neq e^{A}e^C$
+
+Let us consider the RHS first, it consists of $e^A$ and $e^C$. Let's consider the term $e^A$.
+
+
+Consider the powers of the matrix $A$.
+
+\begin{align*}
+A &= \begin{pmatrix}
+0 & 1 \\ 1 & 0
+\end{pmatrix}, 
+A^2 = \begin{pmatrix}
+1 & 0 \\ 0 & 1
+\end{pmatrix} = I, 
+A^3 = A \\
+\Rightarrow A^{2p} &= I, A^{2p+1} = A, p \in \mathbb{N} 
+\end{align*}
+
+This says that for the odd powers of $A$, we obtain $A$, for the even powers of $A$, we obtain $A$. Notice that this property is true for involutory matrices in general as $A^{2p} = (A^2)^p = I^p = I$, and $A^{2p+1} = A^{2p}A = IA = A$. We have seen before that $C$ is involutory as well, so we can expect $C$ to have this same property without proving it.
+
+Then Taylor expanding $e^{kA}$:
+
+\begin{align*}
+e^{kA} &= I + kA + \frac{k^2 A^2}{2!} + \frac{k^3A^3}{3!} + \ldots  \\
+&= I + kA + \frac{k^2 I}{2!} + \frac{k^3A}{3!} + \ldots  \\
+&= I(1 + \frac{k^2}{2!} + \frac{k^4}{4!} + \ldots ) + A (k + \frac{k^3}{3!} + \ldots ) 
+\end{align*}
+
+Consider the two series in the equation above, let's label them $S_1$, and $S_2$ respectively. Consider that $e^x$ and $e^{-x}$ have the same coefficients on even terms due to the even power of $-x$, and opposite terms due to the odd power of $-x$, and $S_1$ represents all of the even term of $e^x$, and $S_2$ represent all of the odd terms of $e^{x}$, we can write that $S_1 = \frac{e^{x} - e^{-x}}{2}, S_2 = \frac{e^{x} + e^{-x}}{2}$. We can also see that $S_1 = \cosh k, S_2 = \sinh k$. Rewriting the equation, we have:
+
+\begin{align*}
+e^{kA} = I \cosh k + A \sinh k = \begin{pmatrix}
+\cosh k & \sinh k \\ \sinh k & \cosh k
+\end{pmatrix}
+\end{align*}
+
+This is in general for the case of $e^{kA}$, this case of $e^A$ is just when $k=1$, so we have:
+
+\begin{align*}
+e^A &= I \cosh 1 + A \sinh 1 = \begin{pmatrix}
+\cosh 1 & \sinh 1 \\ \sinh 1 & \cosh 1
+\end{pmatrix} \\
+\end{align*}
+
+Let's then consider the case of $e^{kC}$:
+
+\begin{align*}
+e^{kC} &= I (1 + \frac{k^2}{2!} + \frac{k^4}{4!} + \ldots )+ C (k + \frac{k^3}{3!} + \ldots ) 
+= I S_1 + C S_2 \\ &= \begin{pmatrix}
+S_1 + S_2 & 0 \\ 0 & S_1 - S_2
+\end{pmatrix} = \begin{pmatrix}
+e^{k} & 0 \\ 0 & e^{-k}
+\end{pmatrix} \\
+e^C &= \begin{pmatrix}
+e & 0 \\ 0 & e^{-1}
+\end{pmatrix}
+\end{align*}
+
+Now, we can compute the RHS of $e^{A+C} \neq e^{A}e^{C}$
+
+\begin{align*}
+e^{A}e^{C} = \begin{pmatrix}
+e \cosh 1 & e^{-1} \sinh 1 \\ e \sinh 1 & e^{-1} \cosh 1
+\end{pmatrix}
+\end{align*} 
+
+Now let's consider the case for $A+C$, let $M = A+C$, consider the powers of $M$
+
+\begin{align*}
+M &= A+C = \begin{pmatrix}
+1 & 1 \\ 1 & -1
+\end{pmatrix}, 
+M^2 = \begin{pmatrix}
+2 & 0 \\ 0 & 2
+\end{pmatrix}  = 2I \\
+M^3 &= 2IM = 2M,
+M^4 = 2M^2 = 4I 
+\end{align*}
+
+Then we can conclude that powers of $M$ is 
+
+\begin{align*}
+M^{2p} = 2^p I, 
+M^{2p+1} = 2^p M
+\end{align*}
+
+Then we consider the expression $e^{M}$. 
+
+\begin{align*}
+e^{M} &= I + M + \frac{M^2}{2!} + \frac{M^3}{3!} + \ldots \\ 
+&= I + M + 2^1 \frac{I}{2!} + 2^1 \frac{M}{3!} + \ldots \\
+&= I(1 + \frac{2^1}{2!} + \frac{2^2}{4!} + \ldots ) + M (1 + \frac{2^1}{3!} + \frac{2^2}{5!} + \ldots ) \\
+\end{align*}
+
+Let's consider the value of $S_1$ and $S_2$. Since $S_1$ contains the terms of a $\cosh$ expansion with $x^2 = 2$, therefore it is $\cosh \sqrt{2}$, and for $S_2$, since if the series were to be multiplied by $\sqrt{2}$, we would get the expansion of $\sinh \sqrt{2}$, therefore $S_2 = \frac{\sinh \sqrt{2}}{\sqrt{2}}$
+\begin{align*}
+S_1 = \cosh \sqrt{2}, S_2 = \frac{\sinh \sqrt{2}}{\sqrt{2}}
+\end{align*}
+
+Return to the original equation to find $e^M$, 
+
+\begin{align*}
+e^{A+C} = \begin{pmatrix}
+S_1 + S_2 & S_2 \\ S_2 & S_1 - S_2
+\end{pmatrix}
+= \begin{pmatrix}
+\cosh \sqrt{2} + \frac{\sinh \sqrt{2}}{\sqrt{2}} & \frac{\sinh \sqrt{2}}{\sqrt{2}} \\ \frac{\sinh \sqrt{2}}{\sqrt{2}} & \cosh \sqrt{2} - \frac{\sinh \sqrt{2}}{\sqrt{2}}
+\end{pmatrix}
+\end{align*}
+
+and from before,
+
+\begin{align*}
+e^{A}e^{C} = \begin{pmatrix}
+e \cosh 1 & e^{-1} \sinh 1 \\ e \sinh 1 & e^{-1} \cosh 1
+\end{pmatrix}
+\end{align*} 
+
+We can see, indeed, $e^{A+C} \neq e^A e^C$.
+
+\end{proof}
+
+\paragraph{(iv) Solution Summary} By using the Taylor expansion definition of the exponential function, and substituting out based on the involutory property of the Pauli spin matrices having the original matrix at odd power and the identity at even powers, we can obtain a single matrix expression for $e^A, e^C$ and $e^{A+C}$, we can see then that the product of the first two is not the final matrix.
+
+\paragraph{(v) Notes on method} The notable new content here is that, to conclude the value of the series in the odd and even terms when we're Taylor expanding the exponential function, the Taylor expansion value of the $\cosh$ and $\sinh$ comes in handy. Otherwise, this is pretty straight forward in using the matrix multiplication and powers and Taylor expansion of the exponential function to see that indeed the two values, $e^Ae^C$ and $e^{A+C}$ are not the same.
+
+\end{document}

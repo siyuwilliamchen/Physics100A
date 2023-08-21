@@ -1,0 +1,258 @@
+\documentclass{article}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{physics}
+
+\usepackage{mathtools}
+
+\newcommand\perm[2][^n]{\prescript{#1\mkern-2.5mu}{}P_{#2}}
+\newcommand\comb[2][^n]{\prescript{#1\mkern-0.5mu}{}C_{#2}}
+
+\DeclareMathOperator{\spn}{span}
+
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+
+\title{HW\#2 Physics 100A}
+\date{6/28/2023}
+\author{William Chen 3619053} 
+\begin{document}
+
+\maketitle
+ 
+\section*{Boas Chapter 3 Page 122 Problem 6}
+
+The Pauli spin matrices in quantum mechanics are
+
+\begin{align*}
+A = \begin{pmatrix}
+0 & 1 \\ 1 & 0
+\end{pmatrix}
+B = \begin{pmatrix}
+0 & -i \\ i & 0
+\end{pmatrix}
+C = \begin{pmatrix}
+1 & 0 \\ 0 & -1
+\end{pmatrix}
+\end{align*}
+
+(You will probably find these called $\sigma_x, \sigma_y, \sigma_z$ in your quantum mechanics texts.)
+Show that $A^2 = B^2 = C^2$ = a unit matrix. Also show that any two of these matrices
+anticommute, that is, $AB = -BA$, etc. Show that the commutator of $A$ and $B$, that
+is, $AB - BA$, is $2iC$, and similarly for other pairs in cyclic order.
+
+\paragraph{(i) Introduction} The Pauli spin matrices denoted in the question are elements of the vector field $\mathbb{C}^{2\times 2}$, the two-by-two matrices over complex numbers. These matrices occur in quantum mechanics and are a part of the Pauli equation and together with the identity matrix in $\mathbb{C}^{2\times 2}$, we have showed later in the course that they form a basis in $\mathbb{C}^{2\times 2}$. This problem is concerned over the following important properties of the Pauli spin matrices: a) The square of the matrices form a unit matrix in $\mathbb{C}^{2 \times 2}$, b) The product of any two of these matrices anti-commute, or $AB = -BA$. c) The commutator of $A$ and $B$ is $2iC$, $AB - BA$ is $2iC$, and it follows the cyclic order for any of these matrices, or $\sigma_i \sigma_j - \sigma_j \sigma_i = 2i\sigma_k$, if we denote $A, B, C$ as $\sigma_1, \sigma_2, \sigma_3$. 
+
+\paragraph{(ii) Relationship to course material.} As we are studying linear vector spaces in general, the vector spaces of square matrices have interesting properties to examine. There exists a defined multiplication of elements of this vector space, matrix multiplication, where the product of the two square matrices is still a square matrix of the same dimension, and the elements in coordinate $i,j$ in the resulting matrix is the inner product between the ith row vector of the first matrix and the jth column vector of the second matrix. 
+
+The first property to be proven, that any of the Pauli matrices squared is the identity, indicates that they are their own inverse matrix, which, when multiplied, right or left, with the original matrix, results in the identity matrix. This means that $A^{-1} = A$ holds for all Pauli matrices.
+
+The second property of anti-community: since matrix products are not commutative in general, that is $AB \neq BA$ in general, the Pauli matrices exhibit an interesting property of anti-community, that is $AB = -BA$. 
+
+The third property of the commutator, which for any two matrix $A, B$, is defined to be $AB - BA$, in this case, if we follow cyclic order for $A, B , C$, we can show that the commutator between two matrices in the Pauli spin matrices is the other matrix scalar multiplied by $2i$.
+
+The question is related to the course material in the way that it provides practice for the operation of matrix multiplication, and shows interesting results for these matrices. It also provides practice for finding the commutator of two matrices. 
+
+\paragraph{(iii) Steps to solve the problem}
+
+We can divide the problem two three parts, proving the three properties listed above. In each parts, there are three cases, that is each one concerting with $A, B, C$.
+
+1. The square of the matrices is the identity matrix.
+
+\begin{proof}
+
+a) To show $A^2 = I$
+
+\begin{align}
+A^2 &= \begin{pmatrix}
+0 & 1 \\ 1 & 0
+\end{pmatrix} \begin{pmatrix}
+0 & 1 \\ 1 & 0
+\end{pmatrix} \\
+&= \begin{pmatrix}
+0 \times 0 + 1 \times 1 & 0 \times 1 + 1 \times 0 \\ 1 \times 0 + 0 \times 1 & 1\times 1 + 0 \times 0
+\end{pmatrix} = \begin{pmatrix}
+1 & 0 \\ 0 & 1
+\end{pmatrix} = I
+\end{align}
+
+In (1) we have written out the form of $A^2 = AA$, in (2), we have carried out the operation of matrix multiplication for each coordinate. Collecting the terms, we do see that the result is the identity matrix in $\mathbb{C}^{2 \times 2}$
+
+b) To show $B^2 = I$
+
+\begin{align}
+B^2 = \begin{pmatrix}
+0 & -i \\ i & 0
+\end{pmatrix}
+\begin{pmatrix}
+0 & -i \\ i & 0
+\end{pmatrix} = \begin{pmatrix}
+0 \times 0 - i \times i & 0 \times i - i \times 0 \\
+-i \times 0 + 0 \times i & i \times -i + - 0 \times 0
+\end{pmatrix}
+= \begin{pmatrix}
+1 & 0 \\ 0 & 1
+\end{pmatrix} = I
+\end{align}
+
+c) To show $C^2 = I$
+
+\begin{align}
+C^2 = \begin{pmatrix}
+1 & 0 \\ 0 & -1
+\end{pmatrix}
+\begin{pmatrix}
+1 & 0 \\ 0 & -1
+\end{pmatrix}
+= \begin{pmatrix}
+1 \times 1 + 0 \times 0 & 1 \times 0 - 1 \times 0 \\
+-1 \times 0 + 1 \times 0 & 0 \times 0 - 1 \times -1
+\end{pmatrix}
+= \begin{pmatrix}
+1 & 0 \\ 0 & 1
+\end{pmatrix} = I
+\end{align}
+
+Indeed, the square of each matrix is the identity matrix.
+\end{proof}
+
+2. To show that the product of two matrices anti-commute. We have to show in three cases that $AB = - BA, BC = - CB, CA = - AC$
+
+\begin{proof}
+a) To show $AB = - BA$
+
+The left hand side is:
+\begin{align}
+AB = \begin{pmatrix}
+0 & 1 \\ 1 & 0
+\end{pmatrix}
+\begin{pmatrix}
+0 & -i \\ i & 0
+\end{pmatrix}
+= \begin{pmatrix}
+i & 0 \\ 0 & -i
+\end{pmatrix}
+\end{align}
+
+The right hand side is:
+\begin{align}
+-BA = -\begin{pmatrix}
+0 & -i \\ i & 0
+\end{pmatrix}\begin{pmatrix}
+0 & 1 \\ 1 & 0
+\end{pmatrix}= -\begin{pmatrix}
+-i & 0 \\ 0 & i
+\end{pmatrix}
+\end{align}
+
+Indeed LHS = RHS, $AB = - BA$
+
+b) To show $BC = - CB$
+
+\begin{align}
+LHS &= BC = \begin{pmatrix}
+0 & -i \\ i & 0
+\end{pmatrix}\begin{pmatrix}
+1 & 0 \\ 0 & -1
+\end{pmatrix} = \begin{pmatrix}
+0 & i \\ i & 0
+\end{pmatrix} \\ 
+RHS &= -CB = \begin{pmatrix}
+1 & 0 \\ 0 & -1
+\end{pmatrix}\begin{pmatrix}
+0 & -i \\ i & 0
+\end{pmatrix} = - \begin{pmatrix}
+0 & -i \\ -i & 0
+\end{pmatrix}
+\end{align}
+
+Indeed LHS = RHS, $BC = - CB$
+
+c) To show $CA = - AC$
+
+\begin{align}
+LHS &= CA = \begin{pmatrix}
+1 & 0 \\ 0 & -1
+\end{pmatrix} \begin{pmatrix}
+0 & 1 \\ 1 & 0
+\end{pmatrix} = \begin{pmatrix}
+0 & -1 \\ 1 & 0
+\end{pmatrix} \\
+RHS &= -AC = \begin{pmatrix}
+0 & 1 \\ 1 & 0
+\end{pmatrix}\begin{pmatrix}
+1 & 0 \\ 0 & -1
+\end{pmatrix} = - \begin{pmatrix}
+0 & 1 \\ -1 & 0
+\end{pmatrix}
+\end{align}
+Indeed LHS = RHS, $CA = - AC$
+\end{proof}
+
+3. To show that the commutator between two matrices in the cyclic order is the $2i$ multiplied by the other one. This means that we have to show for three cases $AB - BA = 2iC, BC - CB = 2iA, CA - AC = 2iB$. Since from part 2, we have shown that $AB = - BA$ and the same for all other combinations, $AB - BA = AB + AB = 2AB$ and the same for all other cases, so we instead have to prove $2AB = 2iC$, which is the same thing as $AB = iC, BC = iA, CA = iB$, and this is the equivalent of proving the first statements. From problem two, we can also extract $AB, BC, CA$.
+
+\begin{proof}
+a) To prove that $AB = iC$
+
+From part 2:
+\begin{align}
+LHS &= AB = \begin{pmatrix}
+i & 0 \\ 0 & -i
+\end{pmatrix} \\
+RHS &= iC = i \begin{pmatrix}
+1 & 0 \\ 0 & -1
+\end{pmatrix} = \begin{pmatrix}
+i & 0 \\ 0 & -i
+\end{pmatrix}
+\end{align}
+
+Indeed LHS = RHS, $AB = iC$
+
+b) To prove that $BC = iA$
+
+\begin{align}
+LHS &= BC = \begin{pmatrix}
+0 & i \\ i & 0
+\end{pmatrix} \\
+RHS &= iA = i \begin{pmatrix}
+0 & 1 \\ 1 & 0
+\end{pmatrix} = \begin{pmatrix}
+0 & i \\ i & 0
+\end{pmatrix}
+\end{align}
+
+Indeed LHS = RHS, $BC = iA$
+
+c) To prove that $CA = iB$
+
+\begin{align}
+LHS &= CA = \begin{pmatrix}
+0 & -1 \\ 1 & 0
+\end{pmatrix} \\
+RHS &= i \begin{pmatrix}
+0 & -i \\ i & 0
+\end{pmatrix} = \begin{pmatrix}
+0 & -1 \\ 1 & 0
+\end{pmatrix}
+\end{align}
+Indeed LHS = RHS, $CA = iB$
+
+We have shown that $AB - BA = 2iC, BC - CB = 2iA, CA - AC = 2iB$.
+\end{proof}
+
+\paragraph{(iv) Solution Summary} We have shown that the Pauli spin matrices are indeed a)involutory, that is, its inverse is itself by showing that the square of each matrix is the identity matrix, b) anti-communitative, that is, $AB = -BA$ for all possible combinations of $A,B,C$, and c) that their commutator for two matrices is $2i$ multiplied by the other matrix, in the cyclic order, or $AB - BA = 2iC$ and the same for all cases in the cyclic order.
+
+\paragraph{(v) Notes on method} We have used basic properties of matrix multiplication and addition, and structured them in simple proofs to show the properties that we wanted to show. This is an essential skill for future problems dealing with matrices.
+
+\end{document}

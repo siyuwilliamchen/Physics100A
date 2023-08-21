@@ -1,0 +1,285 @@
+\documentclass{article}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{physics}
+
+\usepackage{mathtools}
+
+\newcommand\perm[2][^n]{\prescript{#1\mkern-2.5mu}{}P_{#2}}
+\newcommand\comb[2][^n]{\prescript{#1\mkern-0.5mu}{}C_{#2}}
+
+\DeclareMathOperator{\spn}{span}
+
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+
+\title{HW\# Physics 100A}
+\date{7/4/2023}
+\author{William Chen 3619053} 
+\begin{document}
+
+\maketitle
+
+\paragraph{Section 6, page 121: problem 30 (only do exp(kA))}
+For the Pauli spin matrix A in Problem 6, find the matrices $e^{kA}$.
+
+Consider the powers of the matrix $A$.
+
+\begin{align*}
+A &= \begin{pmatrix}
+0 & 1 \\ 1 & 0
+\end{pmatrix}, 
+A^2 = \begin{pmatrix}
+1 & 0 \\ 0 & 1
+\end{pmatrix} = I, 
+A^3 = A \\
+\Rightarrow A^{2p} &= I, A^{2p+1} = A, p \in \mathbb{N} 
+\end{align*}
+
+Then Taylor expanding $e^{kA}$:
+
+\begin{align*}
+e^{kA} &= I + kA + \frac{k^2 A^2}{2!} + \frac{k^3A^3}{3!} + \ldots  \\
+&= I + kA + \frac{k^2 I}{2!} + \frac{k^3A}{3!} + \ldots  \\
+&= I(1 + \frac{k^2}{2!} + \frac{k^4}{4!} + \ldots ) + A (k + \frac{k^3}{3!} + \ldots ) 
+\end{align*}
+
+Consider the two series in the equation above, let's label them $S_1$, and $S_2$ respectively. Consider that $e^x$ and $e^{-x}$ have the same coefficients on even terms due to the even power of $-x$, and opposite terms due to the odd power of $-x$, and $S_1$ represents all of the even term of $e^x$, and $S_2$ represent all of the odd terms of $e^{x}$, we can write that $S_1 = \frac{e^{x} - e^{-x}}{2}, S_2 = \frac{e^{x} + e^{-x}}{2}$. We can also see that $S_1 = \cosh k, S_2 = \sinh k$. Rewriting the equation, we have:
+
+\begin{align*}
+e^{kA} = I \cosh k + A \sinh k = \begin{pmatrix}
+\cosh k & \sinh k \\ \sinh k & \cosh k
+\end{pmatrix}
+\end{align*}
+
+\paragraph{Section 15, page 184: problem 34}	
+In problems 6.30 and 6.31, you found the matrices $e^A$ and $e^C$ (put $k = 1$) where $A$
+and C are the Pauli matrices from Problem 6.6. Now find the matrix $(A+C)$ and its
+powers and so find the matrix $e^{A+C}$ to show that $e^{A+C} \neq e^A e^C$. See Problem 6.29.
+
+\begin{proof}
+
+From the first problem, we have the expansion of $e^{A}$, it is:
+
+\begin{align*}
+e^A &= I \cosh 1 + A \sinh 1 = \begin{pmatrix}
+\cosh 1 & \sinh 1 \\ \sinh 1 & \cosh 1
+\end{pmatrix} \\
+\end{align*}
+
+Since for the powers of $A$ and $C$, the odd power always equal to the original matrix, and the even power always equal to identity, their expansion in the exponential function is the same. This is a consequence of these matrices being involutary. We have the following for $e^C$
+
+\begin{align*}
+e^{kC} &= I (1 + \frac{k^2}{2!} + \frac{k^4}{4!} + \ldots )+ C (k + \frac{k^3}{3!} + \ldots ) 
+= I S_1 + C S_2 \\ &= \begin{pmatrix}
+S_1 + S_2 & 0 \\ 0 & S_1 - S_2
+\end{pmatrix} = \begin{pmatrix}
+e^{k} & 0 \\ 0 & e^{-k}
+\end{pmatrix} \\
+e^C &= \begin{pmatrix}
+e & 0 \\ 0 & e
+\end{pmatrix}
+\end{align*}
+
+Now, we can compute the RHS of $e^{A+C} \neq e^{A}e^{C}$
+
+\begin{align*}
+e^{A}e^{C} = \begin{pmatrix}
+e \cosh 1 & e \sinh 1 \\ e \sinh 1 & e \cosh 1
+\end{pmatrix}
+\end{align*} 
+
+Now let's consider the case for $A+C$, let $M = A+C$, consider the powers of $M$
+
+\begin{align*}
+M &= A+C = \begin{pmatrix}
+1 & 1 \\ 1 & -1
+\end{pmatrix}, 
+M^2 = \begin{pmatrix}
+2 & 0 \\ 0 & 2
+\end{pmatrix}  = 2I \\
+M^3 &= 2IM = 2M,
+M^4 = 2M^2 = 4I 
+\end{align*}
+
+Then we can conclude that powers of $M$ is 
+
+\begin{align*}
+M^{2p} = 2^p I, 
+M^{2p+1} = 2^p M
+\end{align*}
+
+Then we consider the expression $e^{M}$. 
+
+\begin{align*}
+e^{M} &= I + M + \frac{M^2}{2!} + \frac{M^3}{3!} + \ldots \\ 
+&= I + M + 2^1 \frac{I}{2!} + 2^1 \frac{M}{3!} + \ldots \\
+&= I(1 + \frac{2^1}{2!} + \frac{2^2}{4!} + \ldots ) + M (1 + \frac{2^1}{3!} + \frac{2^2}{5!} + \ldots ) \\
+\end{align*}
+
+Let's consider the value of $S_1$ and $S_2$. Since $S_1$ contains the terms of a $\cosh$ expansion with $x^2 = 2$, therefore it is $\cosh \sqrt{2}$, and for $S_2$, since if the series were to be multiplied by $\sqrt{2}$, we would get the expansion of $\sinh \sqrt{2}$, therefore $S_2 = \frac{\sinh \sqrt{2}}{\sqrt{2}}$
+\begin{align*}
+S_1 = \cosh \sqrt{2}, S_2 = \frac{\sinh \sqrt{2}}{\sqrt{2}}
+\end{align*}
+
+Return to the original equation to find $e^M$, 
+
+\begin{align*}
+e^M = \begin{pmatrix}
+S_1 + S_2 & S_2 \\ S_2 & S_1 - S_2
+\end{pmatrix}
+= \begin{pmatrix}
+\cosh \sqrt{2} + \frac{\sinh \sqrt{2}}{\sqrt{2}} & \frac{\sinh \sqrt{2}}{\sqrt{2}} \\ \frac{\sinh \sqrt{2}}{\sqrt{2}} & \cosh \sqrt{2} - \frac{\sinh \sqrt{2}}{\sqrt{2}}
+\end{pmatrix}
+\end{align*}
+
+Indeed, $e^{A+C} \neq e^A e^C$.
+
+\end{proof}
+
+\paragraph{Additional Problem B1}
+
+Consider the space of functions defined on the real x-axis
+
+(a) 
+
+We have the following integrals for reference 
+
+\begin{align*}
+&\int_{-\infty}^{\infty} e^{-x^2} = \sqrt{\pi} \\
+&\int_{-\infty}^{\infty} e^{-x^2} x^2 = \frac{\sqrt{\pi}}{2} \\
+ &\int_{-\infty}^{\infty} e^{-x^2} x^4 = \frac{3\sqrt{\pi}}{4} \\
+&\int_{-\infty}^{\infty} e^{-x^2} (x^4 - x^2 + 1/4) = \frac{3\sqrt{\pi}}{4} - \frac{\sqrt{\pi}}{2} + \frac{\sqrt{\pi}}{4} = \frac{\sqrt{\pi}}{2}
+\end{align*}
+
+Let's consider the standard basis of polynomials as $\{\ket{i}\} = \{1, x, x^2 ,\ldots \}$. Let's construct an orthonormal basis $\{\ket{e_i}\}$ using the Gram-Schmidt Orthonormalization Theorem.
+
+The set of orthogonal basis vectors without normalizing is given by:
+
+\begin{align*}
+&\ket{e'_1} = \ket{1} = 1 \\
+&\ket{e'_2} = \ket{2} - \beta_{21} \ket{e'_1} = x  \\
+&\ket{e'_3} = \ket{3} - \beta_{32} \ket{e'_2} - \beta_{31} \ket{e'_1} = x^2 - \frac{1}{2}
+\end{align*}
+
+where the $\beta_{ij}$ is derived by:
+
+\begin{align*}
+&\beta_{21} = \frac{\bra{e'_1} \ket{2}}{\bra{e'_1} \ket{e'_1}} = \frac{\int_{-\infty}^{\infty} e^{-x^2} x dx}{\int_{-\infty}^{\infty}e^{-x^2} dx} = \frac{0}{\sqrt{\pi}} = 0 \\
+&\beta_{31} = \frac{\bra{e'_1}\ket{3}}{\bra{e'_1}\ket{e'_1}} = \frac{\int_{-\infty}^{\infty} e^{-x^2} x^2 dx}{\int_{-\infty}^{\infty}e^{-x^2} dx} = \frac{\frac{\sqrt{\pi}}{2}}{\sqrt{\pi}} = \frac{1}{2} \\
+&\beta_{32} = \frac{\bra{e'_2}\ket{3}}{\bra{e'_2}\ket{e'_2}} = \frac{\int_{-\infty}^{\infty} e^{-x^2} x^3 dx}{\int_{-\infty}^{\infty}e^{-x^2} x^2 dx} = 0
+\end{align*}
+
+Then we find the set of normalized orthogonal basis by normalizing $\{\ket{e'_i}\}$
+
+\begin{align*}
+&\ket{e_1} = \frac{1}{\sqrt{\bra{e'_1}\ket{e'_1}}} \ket{e'_1} = \frac{1}{\sqrt{\sqrt{\pi}}} 1 = \pi^{-\frac{1}{4}} \\
+&\ket{e_2} = \frac{1}{\sqrt{\bra{e'_2}\ket{e'_2}}} \ket{e'_2} = \frac{1}{\sqrt{\frac{\sqrt{\pi}}{2}}} x = 2^{\frac{1}{2}} \pi^{-\frac{1}{4}} x \\
+&\ket{e_3} = \frac{1}{\sqrt{\int_{-\infty}^{\infty} e^{-x^2} (x^4 - x^2+ \frac{1}{4}) dx}} (x^2 - \frac{1}{2}) = 2^{\frac{1}{2}} \pi^{-\frac{1}{4}}  (x^2 - \frac{1}{2})
+\end{align*}
+
+And this is the set of orthonormal vectors.
+
+(b) Let $\ket{f} = 2 + 3ix - x^2$
+
+Consider that:
+
+\begin{align*}
+&-x^2 + \frac{1}{2}  = - 2^{-\frac{1}{2}}\pi^{\frac{1}{4}} (2^{\frac{1}{2}} \pi^{-\frac{1}{4}}(x^2 + \frac{1}{2}))\\
+&3ix = 3i 2^{-\frac{1}{2}} \pi^{\frac{1}{4}}  (2^{\frac{1}{2}} \pi^{-\frac{1}{4}} x) \\
+&2 + \frac{1}{2} = \frac{5}{2} = \frac{5}{2} \pi^{\frac{1}{4}} (\pi^{-\frac{1}{4}})
+\end{align*}
+
+Therefore $\ket{f}$ in the calculated orthonormal basis is represented by $\begin{pmatrix}
+\frac{5}{2} \pi^{\frac{1}{4}} \\ 3i 2^{-\frac{1}{2}} \pi^{\frac{1}{4}} \\ - 2^{-\frac{1}{2}}\pi^{\frac{1}{4}}
+\end{pmatrix}$
+
+The norm of this is $\bra{f^{*}}\ket{f} = \sqrt{\frac{25}{4} \pi^{\frac{1}{2}} + 9*2^{-1} \pi^{\frac{1}{2}} + 2^{-1}\pi^{\frac{1}{2}}}$
+
+\paragraph{Additional Problem B2}
+
+(a) 	
+First, that the inner product of each vector with themselves form 1.
+
+\begin{align*}
+\bra{f_1}\ket{f_1} = \frac{1}{\pi} \int_{0}^{2\pi} \cos^2(x)dx = \frac{1}{\pi} \int_{0}^{2\pi} (1-\sin 2x ) dx= \frac{1}{\pi} \pi = 1\\
+\bra{f_2}\ket{f_2} = \frac{1}{\pi} \int_{0}^{2\pi} \sin^2(x)dx = \frac{1}{\pi} \int_{0}^{2\pi} (1-\cos 2x ) dx=  \frac{1}{\pi} \pi = 1
+\end{align*}
+
+The cases of $f_3, f_4$ are the same as $f_1, f_2$ but with a change of the argument inside $\sin$
+
+Then, that the inner product of different vectors are 0.
+
+\begin{align*}
+&\bra{f_1}\ket{f_2} = \frac{1}{\pi} \int_{0}^{2\pi} \cos x \sin x dx = 0 \\
+&\bra{f_1}\ket{f_3} = \frac{1}{\pi} \int_{0}^{2\pi} \cos x \cos 2x = \frac{1}{\pi} \int_{0}^{2\pi} \frac{1}{2}(\cos 3x + \cos x) dx = 0
+\end{align*}
+
+The case for $f_1$ and $f_2$ can be shown by integration by parts and it is a known integral with value 0. The inner products of $f_1$ and $f_4$, $f_2$ and $f_3$, $f_3$ and $f_4$ follows the same reasoning of that the product of sine and cosine function have an integral of zero over this period.
+
+The case for $f_1$ and $f_3$ would result in terms of $\sin$ after integration, since the bound of integration is $0$ and $2 \pi$, $\sin$ at that value would be 0. Similarly for $f_2$ and $f_4$, the term of the two $\sin$ multiplying together expands to the difference between two cosine function, which after integration, results in sine functions again that go to zero at the bounds of integration.
+
+(b)
+
+Consider $\frac{d}{dx}\begin{pmatrix}
+\cos x \\ \sin x \\ \cos 2x \\ \sin 2x
+\end{pmatrix}
+= \begin{pmatrix}
+\cos x \\ -\sin x \\ 2\cos 2x \\ -2 \sin 2x
+\end{pmatrix}$
+
+This transformation can be described by the matrix 
+\begin{align*}
+M = \begin{pmatrix}
+0 & 1 & 0 & 0 \\ -1 & 0 & 0 & 0 \\ 0 & 0 & 0 & 2 \\ 0 & 0 & -2 & 0 
+\end{pmatrix}
+\end{align*}
+
+This could be more rigorously written by each vector in terms of the basis, but since it is fairly straightforward, we can also just consider that all of the sine terms come from the cosine terms when differentiated, and vice versa.
+
+(c), (d) 
+
+Consider \begin{align*}
+\frac{d^2}{dx^2}\begin{pmatrix}
+\cos x \\ \sin x \\ \cos 2x \\ \sin 2x
+\end{pmatrix} = \begin{pmatrix}
+-\cos x \\ -\sin x \\ -4\cos 2x \\ -4\sin 2x
+\end{pmatrix}
+\end{align*}
+
+This transformation can be described by the matrix 
+\begin{align*}
+M' = \begin{pmatrix}
+-1 & 0 & 0 & 0 \\ 0 & -1 & 0 & 0 \\ 0 & 0 & -4 & 0 \\ 0 & 0 & 0 & -4 
+\end{pmatrix}
+\end{align*}
+
+Consider $M^2$
+\begin{align*}
+M^2 = \begin{pmatrix}
+0 & 1 & 0 & 0 \\ -1 & 0 & 0 & 0 \\ 0 & 0 & 0 & 2 \\ 0 & 0 & -2 & 0 
+\end{pmatrix}\begin{pmatrix}
+0 & 1 & 0 & 0 \\ -1 & 0 & 0 & 0 \\ 0 & 0 & 0 & 2 \\ 0 & 0 & -2 & 0 
+\end{pmatrix} = \begin{pmatrix}
+-1 & 0 & 0 & 0 \\ 0 & -1 & 0 & 0 \\ 0 & 0 & -4 & 0 \\ 0 & 0 & 0 & -4 
+\end{pmatrix} = M'
+\end{align*}
+
+Indeed it is the square of the first matrix.
+\end{document}
+
+From Boas Chapter 3:
+
+ Section 6, page 121: problem 30 (only do exp(kA))
+ Section 15, page 184: problem 34

@@ -1,0 +1,284 @@
+\documentclass{article}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{physics}
+
+\usepackage{mathtools}
+
+\newcommand\perm[2][^n]{\prescript{#1\mkern-2.5mu}{}P_{#2}}
+\newcommand\comb[2][^n]{\prescript{#1\mkern-0.5mu}{}C_{#2}}
+
+\DeclareMathOperator{\spn}{span}
+
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+
+\title{HW\# Physics 100A}
+\date{7/4/2023}
+\author{William Chen 3619053} 
+\begin{document}
+
+\maketitle
+
+\paragraph{Section 9, page 142:  problem 25}
+a) Show that the inverse of an orthogonal matrix is orthogonal. (b) Show that the inverse of a unitary matrix is unitary. (c) If $H$ is Hermitian and $U$ is unitary, show that $U^{-1}HU$ is Hermitian.
+
+\begin{proof}
+(a) Let $A$ be an orthogonal matrix, that is $A^{T} = A^{-1}$. 
+
+Let $B$ be the inverse of such orthogonal matrix, $B = A^{-1}$. If the transpose of $B$ is the inverse of $B$, then $B$ is orthogonal as well.
+
+\begin{align*}
+B^T = (A^{-1})^T = (A^T)^T = A\\
+B^{-1} = (A^{-1})^{-1} = A
+\end{align*}
+
+Therefore $B^{-1} = B^{T}$, $B$ is orthogonal as well.
+\end{proof}
+
+\begin{proof}
+Let $A$ be a unitary matrix, that is $A^{-1} = A^{\dagger}$
+
+Let $B$ be its inverse. Since $B = A^{-1} = A^{\dagger}$, let's consider the conjugate transpose of $B$ is its inverse.
+
+\begin{align*}
+B^{-1} = {A^{-1}}^{-1} = A = {A^{\dagger}}^{\dagger} = B^{\dagger}
+\end{align*}
+
+The implicit fact here is that taking the complex conjugate twice returns the original matrix: which is very intuitive, taking the transpose twice of a matrix returns itself, taking the complex conjugate of any complex number twice returns itself as well. Therefore $B$ is also unitary.
+
+\end{proof}
+
+(c) \begin{proof} Since from (a) and (b), we have that the inverse of an orthogonal matrix is orthogonal, the inverse of a unitary matrix is unitary, since $U$ is unitary, $U^{-1}$ must also be unitary. Then we consider the conjugate transpose of $U^{-1}HU$
+
+\begin{align*}
+(U^{-1}HU)^{\dagger} = U^{\dagger} H^{\dagger} {U^{-1}}^{\dagger}
+\end{align*}
+
+By the property of that the conjugate transpose of a product is the product of the conjugate transpose in the reverse order. Since $U$ is unitary, its conjugate transpose is its inverse, we can substitute $U^{\dagger}$ with $U^{-1}$. Since $U^{-1}$ is also unitary by (b), we can substitute the conjugate transpose of $U^{-1}$ with its inverse as well, we have ${U^{-1}}^{\dagger} = {U^{-1}}^{-1} = U$. Lastly, since $H$ is Hermitian, the conjugate transpose of $H$ is itself, therefore the original expression becomes:
+
+\begin{align*}
+(U^{-1}HU)^{\dagger} = U^{\dagger} H^{\dagger} {U^{-1}}^{\dagger} =U^{-1}HU
+\end{align*}
+
+which is the original matrix that we are taking the conjugate transpose of, this means that $U^{-1}HU$ is Hermitian.
+
+\end{proof}
+\paragraph{Section 10, page 147: problem 7}
+Show that, in $n$-dimensional space, any $n + 1$ vectors are linearly dependent.
+
+\begin{proof}
+Suuppose we have a list of vectors $S = \{\vec{v}_1, \vec{v}_2 \ldots \vec{v}_n, \vec{v}_{n+1} \} \in V$, where $V$ is a $n$-dimensional space and the list $S$ is independent. Since $V$ is a finite dimensional vector space, it must have a basis with a list whose cardinality is equal to the dimension of the vector space. Let $B = \{ \vec{b}_1, \vec{b}_2 ,\ldots \vec{b}_n \}$ be any basis in $V$.
+
+Then, let's consider since $\spn(B) = V, \vec{v}_1 \in V \Rightarrow \vec{v}_1 \in \spn(B), $
+
+This can be written as 
+
+\begin{align*}
+\vec{v}_1 = \sum_{k=1}^{n} a_k \vec{b}_k
+\end{align*}
+
+Since the vector $\vec{v}_1$ is not zero, otherwise the list $S$ would not be independent, then at least one of the $a_k$ has to be non-zero. WLOG, we can call that term $a_k \vec{b}_k$ as $a_1 \vec{b}_1$ as the basis is not ordered. Then we can manipulate the equation algebraically to obtain
+
+\begin{align*}
+\vec{b}_1 = \frac{1}{a_1}(\vec{v}_1 - \sum_{k=2}^{n} a_k \vec{b}_k)
+\end{align*}
+
+Now $\vec{b}_1$ is in the linear combination of $\vec{v}_1$ and the rest of the basis. This is our base case that $\spn{\{\vec{v}_1, \vec{b}_2 ,\ldots , \vec{b}_n\}} = V$
+
+To continue, we have to show that assume that $\spn{\{ \vec{v}_1 \ldots, \vec{v}_i , \vec{b}_{i+1}, \ldots, \vec{b}_n \}}=V$ is true and see that it implies $\spn{\{ \vec{v}_1 \ldots, \vec{v}_{i+1} , \vec{b}_{i+2}, \ldots, \vec{b}_n \}}=V$.
+
+Since $\spn{\{ \vec{v}_1 \ldots, \vec{v}_i , \vec{b}_{i+1}, \ldots, \vec{b}_n \}}=V$, consider $\vec{v}_{i+1}$, we can write it as
+
+\begin{align*}
+\vec{v}_{i+1} = c_1 \vec{v}_1 + \ldots + c_i \vec{v}_{i} + \sum_{k=i+1}^{n} a_k \vec{b}_k
+\end{align*}
+
+but still, at least one constant in the remaining $a_k$ must be zero, otherwise we would violate the independence of vectors $\vec{v}$ as $\vec{v}_{i+1}$ is written as a linear combination of all of the vectors before it. So then, we can do the same process and WLOG name a non-zero $a_k \vec{b}_k$ term as $a_{i+2} \vec{b}_{i+2}$.
+
+\begin{align*}
+\vec{b}_{i+2} = \frac{1}{a_{i+2}}(\vec{v}_{i+2} - c_{i+1} \vec{v}_{i+1} - \ldots - c_1 \vec{v}_1 - \sum_{k=i+3}^{n} a_k \vec{b}_k)
+\end{align*}
+
+which shows that indeed, $\vec{b}_{i+2}$ is in the span of all of the vectors in $S$ up to $\vec{v}_{i+2}$ and the remainder of the basis, therefore, this implies $\spn{\{ \vec{v}_1 \ldots, \vec{v}_{i+1} , \vec{b}_{i+2}, \ldots, \vec{b}_n \}}=V$
+
+Then, we can use induction and we have proved that the following is true:
+
+\begin{align*}
+\spn{\{ \vec{v}_1 \ldots, \vec{v}_{n} \}} = V
+\end{align*}
+
+Since for any independent list of $n+1$ elements, the first $n$ elements must hold true to the above, then we can say that $\vec{v}_{n+1} \in V \Rightarrow \vec{v}_{n+1} \in \spn{\{ \vec{v}_1 \ldots, \vec{v}_{n} \}} \Rightarrow \vec{v}_{n+1}$ is not linearly independent to $\{ \vec{v}_1 \ldots, \vec{v}_{n} \}$. Therefore we have a contradiction, and indeed such list of $11$ vectors cannot be independent, and therefore must be dependent.
+
+The proof is tedious, but does not involve any other property of the basis other than the property that a finite dimensional vector space must have a basis.
+\end{proof}
+
+
+\paragraph{Section 9, page 370: problem 23}
+
+If a violin string is plucked (pulled aside and let go), it is possible to find a formula $f(x, t)$ for the displacement at time $t$ of any point $x$ of the vibrating string from its equilibrium position. It turns out that in solving this problem we need to expand the function $f(x, 0)$, whose graph is the initial shape of the string, in a Fourier sine series. Find this series if a string of length $l$ is pulled aside a small distance $h$ at its center, as shown.
+
+For this problem, let's consider the function of $f(x,0)$. Since the ends, by boundary condition, has to have a displacement of 0 as they are fixed,  and the string is plucked and therefore the string is tightened and form two straight lines. We can see that the function for the string is:
+
+\begin{align*}
+f(x,0) = \begin{cases}
+\frac{2h}{l}x, x \in [0, \frac{l}{2}] \\
+2h-\frac{2h}{l}x, x \in [\frac{l}{2}, l]
+\end{cases}
+\end{align*}
+
+Now we have to Fourier expand it in its sine function. We have:
+
+\begin{align*}
+b_n = \frac{2}{l} \int_{0}^{l} f(x) \sin(\frac{2 \pi n x}{l}) dx
+\end{align*}
+
+and plugging in our $f(x,0)$ as $f(x)$, we have
+
+\begin{align*}
+b_n &= \frac{2}{l} ( \int_{0}^{\frac{l}{2}} \frac{2h}{l}x \sin(\frac{2 \pi n x}{l}) dx + \int_{\frac{l}{2}}^{l}  (2h-\frac{2h}{l}x) \sin(\frac{2 \pi n x}{l}) dx) \\
+&= \frac{4}{l^2} ((\frac{\sin(\frac{n \pi x}{l})}{(\frac{n \pi}{l})^2} - x \frac{\cos{(\frac{n \pi x}{l})}}{(\frac{n \pi}{l})}) \Big|^{\frac{l}{2}}_{0} + (x-l) \frac{\cos(\frac{n \pi x}{l})}{\frac{n \pi}{l}} - \frac{\sin(\frac{n \pi x}{l})}{(\frac{n \pi}{l})^2} \Big|^{l}_{\frac{l}{2}})
+\end{align*}
+
+Since in the first integral, the cosine term has an x to it, therefore when it's just evaluated at $\frac{l}{2}$ since at 0 the $x$ makes it 0, and cosine of $\frac{\pi}{2}$ is zero, it is zero. The sine term in this is not zero. For the second integral, the cosine term when evaluated at $l$ is 0 since $(l-l)=0$, and at $\frac{l}{2}$ cosine is zero, so that term is zero. Therefore it is just the two sine terms summing at:
+
+\begin{align*}
+b_n = \frac{8h}{(n \pi)^2} \sin{(\frac{n \pi}{2})}
+\end{align*}
+
+The function $f(x,0)$ expanded is therefore:
+
+\begin{align*}
+f(x,0) = \sum_{n=1}^{\infty} \frac{8h}{(n \pi)^2} \sin{(\frac{n \pi}{2})} \sin{(\frac{n \pi x}{l})}
+\end{align*}
+
+
+\paragraph{Additional problem C1}
+). Consider the infinite dimensional, complex vector space of periodic functions $f(x)$,
+where $f(x+ 2\pi) = f(x)$ , with inner product
+\begin{align*}
+\bra{f}\ket{g} = \frac{1}{\pi} \int_{0}^{2\pi} f^*(x) g(x) dx
+\end{align*}
+
+In assignment \#3 you showed that the following vectors in the space are orthonormal
+
+\begin{align*}
+\ket{f_1} = \cos(x), \ket{f_2} = \sin(x), \ket{f_3} = \cos(2x), \ket(f_4) = \sin(2x) 
+\end{align*}
+and you found the matrix representation of the operator $\hat{D} = \frac{d}{dx}$ with respect to this
+basis in the subspace spanned by these four orthonormal basis vectors. You can use the results from last week in your answers to the following problems.
+(a). Find the matrix adjoint $D^{\dagger}$ of the matrix representation of the operator $\hat{D}$
+(b). Find the adjoint of the operator $D^{\dagger}$ and verify that its matrix representation is the same
+as the result you obtained in part (a).
+(c). Show that the operator $\hat{D}$ is not invertible on the full, infinite dimensional vector
+space of periodic functions, but that it is invertible on the four dimensional subspace we
+are considering in this problem. Calculate the matrix representation of ${\hat{D}}^{-1}$ on the subspace by inverting the matrix representation of $\hat{D}$.
+(d). To what mathematical operation does ${\hat{D}}^{-1}$ correspond? Apply this operation to the basis kets and verify your matrix representation of ${\hat{D}}^{-1}$.
+
+(a) From last week, we have \begin{align*}
+M = \begin{pmatrix}
+0 & 1 & 0 & 0 \\ -1 & 0 & 0 & 0 \\ 0 & 0 & 0 & 2 \\ 0 & 0 & -2 & 0 
+\end{pmatrix}
+\end{align*}
+
+Now, take the adjoint of the matrix, we have 
+
+\begin{align*}
+{M}^{\dagger} = \begin{pmatrix}
+0 & -1 & 0 & 0 \\ 1 & 0 & 0 & 0 \\ 0 & 0 & 0 & -2 \\ 0 & 0 & 2 & 0
+\end{pmatrix}
+\end{align*}
+
+(b) The adjoint of the operator, since the operator is $\hat{D} = \frac{d}{dx}$. 
+
+Let $\ket{f}, \ket{g}$ be in this space, the adjoint has the following property: 
+
+\begin{align*}
+(\bra{f} {\hat{D}} \ket{g})^{\dagger} = \bra{g}{\hat{D}}^{\dagger} \ket{f} 
+\end{align*}
+
+Consider the LHS:
+
+\begin{align*}
+LHS = \bra{f}\ket{g} = \frac{1}{\pi} \int_{0}^{2\pi}  f^*(x) \frac{d}{dx} g(x) dx
+\end{align*}
+
+Using integration by parts, we get:
+
+\begin{align*}
+LHS = \frac{1}{\pi} ( f^*(x) g(x) \Big|^{2\pi}_{0} -  \int^{2\pi}_{0} g(x) \frac{d}{dx} f^*(x) dx)
+\end{align*}
+
+Let's consider the first term, since the function is periodic, $h(0) = h(2\pi)$ for all functions.
+
+\begin{align*}
+f^*(x) g(x) \Big|^{2\pi}_{0} = f^*( 2\pi) - g(2\pi) - f^*(0) g(0) = 0
+\end{align*}
+
+Then we evaluate what is left of the LHS:
+
+\begin{align*}
+LHS = - \frac{1}{\pi} \int^{2\pi}_{0} f(x) \frac{d}{dx} g^*(x) dx = - (\frac{1}{\pi} \int^{2\pi}_{0} f^*(x) \frac{d}{dx} g(x) dx)^*
+\end{align*}
+
+we can see that, inside the parenthesis, we have extracted the definition of $\bra{f}\ket{g}$, so we have finally:
+
+\begin{align*}
+LHS = \bra{f} (-\frac{d}{dx} C) \ket{g}
+\end{align*}
+
+where $C: \mathbb{C} \to \mathbb{C} : C(a+bi) = a - bi$ is the complex conjugate operator. And since 
+
+\begin{align*}
+\bra{f} (-\frac{d}{dx} C) \ket{g} = \bra{f} \hat{D}^{\dagger} \ket{g}
+\end{align*}
+
+We can conclude that $\hat{D}^{\dagger} = (-\frac{d}{dx} C)$.
+
+Finally, let's consider the matrix of $(-\frac{d}{dx} C)$ on the standard basis. Since our standard basis vectors are all real, we would not expect the operator to alter anything since the span of our basis is all real, therefore:
+
+\begin{align*}
+{M}^{\dagger} = \begin{pmatrix}
+0 & -1 & 0 & 0 \\ 1 & 0 & 0 & 0 \\ 0 & 0 & 0 & -2 \\ 0 & 0 & 2 & 0
+\end{pmatrix}
+\end{align*}
+
+is the matrix representation of the dagger mapped operator $\hat{D}$, and this makes sense since it is just the negative of the $\frac{d}{dx}$ matrix since the operator is just the negative of the $\frac{d}{dx}$ operator.
+
+(c) Since $f(x) = 3$ is a periodic function as $f(x+2\pi) = f(x)$, then applying the operator $\hat{D} = \frac{d}{dx}$ to $f(x)$ yields $\hat{D}f(x) = 0$. Then for the inverse of $\hat{D}$ to exist, that means that there is a linear operator that we apply to $0$ to get back $3$, which is not possible, since if for all linear maps, we can only map 0 to 0. Therefore $\hat{D}$ is not invertible.
+
+In this case however, in our four-dimensional basis, the linear map $\hat{D}$ we have shown is described by the matrix. Since All of its rows are independent, the matrix is invertible. The independence is trivial to show since all column vectors have elements of different rows, or they are a scalar product of different standard basis vectors, and since all standard basis vectors are independent, the rows are independent too.
+
+(d) The ${\hat{D}}^{\dagger}$ operator represents the negative complex conjugate of $\frac{d}{dx}$, in this space where all of our basis vectors are real, therefore all elements are real, it is simply the negative of $\frac{d}{dx}$. Applying it on all basis vectors we have:
+
+\begin{align*}
+\ket{f_1} &= \cos(x), \ket{f_2} = \sin(x), \ket{f_3} = \cos(2x), \ket(f_4) = \sin(2x) \\
+{\hat{D}}^{\dagger} \ket{f_1} &= - \frac{d}{dx} \cos(x) = \sin(x) = \ket{f_2} \\
+{\hat{D}}^{\dagger} \ket{f_2} &= - \frac{d}{dx} \sin(x) = -\cos(x) = - \ket{f_1} \\
+{\hat{D}}^{\dagger} \ket{f_3} &= - \frac{d}{dx} \cos(2x) = 2\sin(2x) = 2\ket{f_4} \\
+{\hat{D}}^{\dagger} \ket{f_4} &= - \frac{d}{dx} \sin(2x) = -2\cos(2x) = - 2\ket{f_3} \\
+\end{align*}
+
+If we represent this into the matrix form, we obtain: 
+
+\begin{align*}
+{M}^{\dagger} = \begin{pmatrix}
+0 & -1 & 0 & 0 \\ 1 & 0 & 0 & 0 \\ 0 & 0 & 0 & -2 \\ 0 & 0 & 2 & 0
+\end{pmatrix}
+\end{align*}
+
+which is indeed the matrix representation obtained previously.
+
+\end{document}
+

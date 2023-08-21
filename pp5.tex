@@ -1,0 +1,153 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{physics}
+
+\usepackage{mathtools}
+
+
+\numberwithin{equation}{section}
+
+\newcommand{\Set}[1]{\{#1\}}
+\newcommand{\FT}{\mathcal{F}}
+\newcommand\perm[2][^n]{\prescript{#1\mkern-2.5mu}{}P_{#2}}
+\newcommand\comb[2][^n]{\prescript{#1\mkern-0.5mu}{}C_{#2}}
+
+\DeclareMathOperator{\spn}{span}
+
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\title{Problem Presentation 5}
+\author{Siyu Chen}
+\date{July 2023}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction of Additional Problem G1, HW8}
+
+The problem is in three parts. In part (a), we identify the operator. In part (b), we find the weight function of the operator that allows our inner product to be normalized. In part (c), we verify that our operator is indeed Hermitian. In part (d), we solve the differential equation described by our operator, and find the corresponding eigenvalue and eigenfunction of the system.
+
+\section{Relation to course material}
+
+We have been discussing Hermitian operators, how to verify that it is Hermitian, and using a weight function to normalize inner product. And this question allows us to practice that as well as solving a simple example problem of an eigenvalue and eigenvector problem with this simple operator.
+
+\section{Steps to solve the problem }
+
+\textbf{Part (a):}
+
+The operator $\hat{L}$ in this case has terms $\alpha(x) = 1, \beta(x) = 0, \gamma(x) = 0$, therefore it can be written as 
+
+\begin{align}
+    \hat{L} = \frac{d^2}{dx^2}
+\end{align}
+
+\textbf{Part (b):}
+
+Since the interval on which our functions are defined is $[0,1]$, that is our limit of integration.
+
+Our weight function is given by the following formula:
+
+\begin{align}
+    w(x) = \frac{1}{\alpha(x)} e^{\int^{x} \frac{\beta(x')}{\alpha(x')}dx'} = \frac{1}{1} e^0 = 1
+\end{align}
+
+So our integral form of our inner product is
+
+\begin{align}
+    \bra{f} \ket{g} = \int_{0}^{1} f^*(x) g(x) dx
+\end{align}
+
+\textbf{Part (c):}
+
+To make sure that $\hat{L}$ is Hermitian, most generally, it must satisfy this:
+
+\begin{align}
+    & w(x) \alpha(x) (u^*_m (x) u'_n(x) - u_n(x) {u^*_m}^{'} (x))  \rvert_{0}^{1} = 0
+\end{align}
+
+since $u_n (0) = 0, u'_n(0) = 0$, we can show that
+
+\begin{align}
+    ( u^*_m (1) u'_n (1) - u_n (1) {u^*_m}^{'} (1))- ( u^*_m (0) u'_n (0) - u_n (0) {u^*_m}^{'} (0)) = 0
+\end{align}
+
+so indeed $\hat{L}$ is Hermitian.
+
+\textbf{Part (d):}
+
+Since the problem really describes the following differential equation with boundary condition of $u'(1) = 0, u(0) = 0$:
+
+\begin{align}
+    u'' - \lambda u = 0
+\end{align}
+
+(And the homework did not specify that we use any specific methods), we can simply treat this as a 2nd order homogeneous linear ODE, with characteristics equation
+
+\begin{align}
+    r^2 - \lambda = 0 
+\end{align}
+
+yielding results of $r_1 = \sqrt{\lambda}, r_2 = -\sqrt{\lambda}$
+
+so our solution is given in the form
+
+\begin{align}
+    u(x) = c_1 e^{\sqrt{\lambda}x} + c_2 e^{-\sqrt{\lambda}x}
+\end{align}
+
+checking for the boundary condition, we have
+
+\begin{align}
+    u(0) &= c_1 + c_2 = 0 \Rightarrow c_1 = - c_2 \\
+    u'(1) &= c (\sqrt{\lambda}e^{\sqrt{\lambda}} + \sqrt{\lambda}e^{-\sqrt{\lambda}}) = 0 \Rightarrow  \\
+    &e^{\sqrt{\lambda}} + e^{-\sqrt{\lambda}} = 0
+\end{align}
+
+Taking (2.11), we can find our requirement for our $\lambda$, we inspect that (2.11) indicates
+
+\begin{align}
+    \cosh (\sqrt{\lambda}) = 0
+\end{align}
+
+we know that the zeros for $\cosh$ is given by the following by Euler's identity, the proof I will omit:
+
+\begin{align}
+    \cosh(x) = 0 \Rightarrow x = (n\pi + \frac{\pi}{2}) i, n \in \mathbb{Z}
+\end{align}
+
+then we have
+
+\begin{align}
+    \lambda_n = - (n^2 \pi^2 + n \pi^2 + \frac{\pi^2}{4})
+\end{align}
+
+and that is our eigenvalues $\lambda_n$. Moving onto finding our eigenfunctions, recall (2.8), along with the restriction of (2.9), we have 
+
+\begin{align}
+    u_n (x) = c_1 (e^{i(n\pi + \frac{\pi}{2})x} - e^{- i(n\pi + \frac{\pi}{2})x})= c \sin((n\pi + \frac{\pi}{2})x), c \in \mathbb{C}, n \in \mathbb{Z} 
+\end{align} 
+
+(Note, the $c_1$ and the $c$ are off by a factor of $2i$ from the $\sin$ expansion, so they are different, but they are complex constants, so it does not really matter.)
+
+\section{Solution Summary}
+We identify the differentiating operator in terms of $\alpha(x), \beta(x), \gamma(x)$ in part (a). In part (b), we practice the formula to find the normalizing weight function by actually computing $w(x) = \frac{1}{\alpha(x)} e^{\int^{x} \frac{\beta(x')}{\alpha(x') dx'}}$. This weight function normalizes our inner product and we can verify that our operator is Hermitian under this weight function by computing and evaluating the difference between the inner product of a two functions and the adjoint of the same inner product. If it is zero, then it means that the operator is Hermitian. In part (d), we evaluate the differential equation via a normal method for a 2nd order linear homogenous ODE. We find the eigenvalue from boundary conditions and plug in the corresponding eigenvalue to get our eigenfunctions.
+
+\section{Note on method}
+
+The important methods to remember from here are the formula to find weight function (3.2), the formula to verify that our operator is Hermitian (3.4). And keep track of our manipulation of hyperbolic, exponential and trigonometric functions of complex numbers in part (d). 
+
+\end{document}

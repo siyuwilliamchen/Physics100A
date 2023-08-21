@@ -1,0 +1,425 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{physics}
+
+\usepackage{mathtools}
+
+\newcommand{\Set}[1]{\{#1\}}
+\newcommand{\FT}{\mathcal{F}}
+\newcommand\perm[2][^n]{\prescript{#1\mkern-2.5mu}{}P_{#2}}
+\newcommand\comb[2][^n]{\prescript{#1\mkern-0.5mu}{}C_{#2}}
+
+\DeclareMathOperator{\spn}{span}
+
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\title{PHYS 100A HW7}
+\author{Siyu Chen}
+\date{July 2023}
+
+\begin{document}
+
+\maketitle
+
+\section{Boas Chapter 3: Section 12, Page 172: problem 14.}
+\paragraph{Find the characteristic frequencies and the characteristic modes of vibration for systems of masses and springs as in Figure 12.1 and Examples 3, 4, and 6 for the following arrays. 14. k,m, 2k,m, k}
+
+Here, our potential energy of the system is 
+
+\begin{align}
+    V = \frac{1}{2}kx^2 + k(x-y)^2 + \frac{1}{2}ky^2 = \frac{3}{2}(x^2 + y^2) - 2kxy
+\end{align}
+
+Then, our equations of motion is given by:
+
+\begin{align}
+    m\Ddot{x} = -\frac{\partial V}{\partial x} = - 3kx + 2ky\\
+    m\Ddot{y} = -\frac{\partial V}{\partial y} =  - 3ky + 2kx
+\end{align}
+
+and since
+
+\begin{align}
+    \ddot{x} = - \omega^2 x, \Ddot{y} = - \omega^2 y
+\end{align}
+
+we have
+
+\begin{align}
+    -m\omega^2 x = - 3kx + 2ky \\
+    -m\omega^2 y = 2kx - 3ky
+\end{align}
+
+and we can write it in the form
+
+\begin{align}
+    \lambda \begin{pmatrix}
+        x \\ y
+    \end{pmatrix} = 
+    \begin{pmatrix}
+        3 & -2 \\ -2 & 3 
+    \end{pmatrix} \begin{pmatrix}
+        x \\ y
+    \end{pmatrix}
+\end{align}
+
+where $\lambda = \frac{m\omega^2}{k}$, note that this is not the eigenvalue despite the same notation. To proceed, we find the eigenvalue of the matrix. The characteristics equation is
+
+\begin{align}
+    (3-\lambda)^2 - 4 = 0
+\end{align}
+
+Therefore $\lambda = 1, 5$. For eigenvalue of $5$, the eigenvector is given by the linear equation
+
+\begin{align}
+    -2 x - 2y = 0 \Rightarrow x = -y 
+\end{align}
+
+Therefore $\ket{v_5} = \begin{pmatrix}
+    1 \\ -1
+\end{pmatrix}$
+
+For eigenvalue of $1$, the eigenvector is given by
+
+\begin{align}
+    2x-2y = 0 \Rightarrow x = y
+\end{align}
+
+Therefore $\ket{v_1} = \begin{pmatrix}
+    1 \\ 1
+\end{pmatrix}$
+
+The character frequency of the oscillation is given by: 
+
+\begin{align}
+    \omega_1 = \sqrt{\frac{k}{m}}, \omega_2 = \sqrt{\frac{5k}{m}}
+\end{align}
+
+And the vibration mode of the first is given by the eigenvector $\ket{v_1}$, or from the description of the textbook, they vibrate in the same direction $\Rightarrow\Rightarrow$ or $\Leftarrow \Leftarrow$ and the vibration mode of the second is given by the eigenvector $\ket{v_5}$ which is $\Rightarrow \Leftarrow$ or $\Leftarrow \Rightarrow$.
+
+\section{Shankar QM: Exercise 1.8.10 (page 46)}
+
+Since $\Lambda$ is not degenerate, finding the eigenvectors of $\Lambda$ first. The characteristics equation of the matrix is
+
+\begin{align}
+    -\lambda^3 + 4 \lambda^2 - \lambda - 6
+\end{align}
+
+solving, we obtain that the matrix has the following eigenvalues and eigenvectors:
+
+\begin{align}
+    \lambda_1 = -1, \ket{v_{-1}} = \begin{pmatrix}
+        -1 \\ 2 \\1
+    \end{pmatrix},
+    \lambda_2 = 2, \ket{v_2} = \begin{pmatrix}
+        -1 \\ -1 \\ 1
+    \end{pmatrix},
+    \lambda_3 = 3, \ket{v_3} = \begin{pmatrix}
+        1 \\ 0 \\ 1
+    \end{pmatrix}
+\end{align}
+
+Now, onto $\Omega$. It is described by the characteristics equation:
+
+\begin{align}
+    \lambda'^2 (\lambda'-2) = 0
+\end{align}
+
+with eigenvalues and corresponding eigenvectors of 
+
+\begin{align}
+    \lambda'_1 = 2, \ket{w_2} = \begin{pmatrix}
+        1 \\ 0 \\ 1
+    \end{pmatrix} \\
+    \lambda'_2 = \lambda'_3 = 0
+\end{align}
+
+Since for the repeated eigenvalue of 0, it is degenerate, we can just plug in existing eigenvectors into the matrix and see if it works. From $\Omega - 0$, we need for the following to work
+\begin{align}
+    x_1 + x_3 = 0
+\end{align}
+
+Plugging in $\ket{v_2}$, $\ket{v_{-1}}$, we have
+
+\begin{align}
+    1(-x) + 0(2x) + 1(x) = 0 \\
+    1(-x) + 0(-x) + 1(x) = 0 
+\end{align}
+
+we can see that both work, so both eigenvectors are eigenvectors for $\Omega$ as well. Then we have to normalize our set of basis, therefore we have
+
+\begin{align}
+    \ket{e_1} = \frac{1}{\sqrt{6}} \begin{pmatrix}
+        -1 \\ 2 \\ 1
+    \end{pmatrix} 
+    \ket{e_2} = \frac{1}{\sqrt{3}} \begin{pmatrix}
+        -1 \\ -1 \\ 1
+    \end{pmatrix}
+    \ket{e_3} = \frac{1}{\sqrt{2}} \begin{pmatrix}
+        1 \\ 0 \\ 1
+    \end{pmatrix}
+\end{align}
+
+and our change of basis matrix is just the matrix of these eigenvectors.
+
+\begin{align}
+    R = \begin{pmatrix}
+        -\frac{1}{\sqrt{6}} & -\frac{1}{\sqrt{3}} & \frac{1}{\sqrt{2}} \\
+        \frac{2}{\sqrt{6}} & -\frac{1}{\sqrt{3}} & 0 \\
+        \frac{1}{\sqrt{6}} & \frac{1}{\sqrt{3}} & \frac{1}{\sqrt{2}}
+    \end{pmatrix}
+\end{align}
+
+Verifying that this matrix is unitary, note that $R^\dagger = R^T$. To verify that $RR^T = I$, we just need to show that the row vectors satisfy $\Vec{r_i}\Vec{r_j} = \delta_ij$ because of the property of transpose.
+\begin{align}
+    r_1 r_1 = \frac{1}{6} + \frac{1}{3} + \frac{1}{2} = 1\\
+    r_2 r_2 = \frac{4}{6} + \frac{1}{3} = 1 \\
+    r_3 r_3 = \frac{1}{6}+ \frac{1}{3} + \frac{1}{2} = 1 \\
+    r_1 r_2 = -\frac{2}{6} + \frac{1}{3} = 0 \\
+    r_1 r_3 = -\frac{1}{6} - \frac{1}{3} + \frac{1}{2} = 0\\
+    r_2 r_3 = \frac{2}{6} - \frac{1}{3} = 0
+\end{align}
+
+and we see that it indeed holds, and we can further verify that indeed they diagonalize the matrices to their eigenvalue.
+
+\begin{align}
+    R^{-1} \Lambda R = \begin{pmatrix}
+        -1 & 0 & 0 \\ 0 & 2 & 0 \\ 0 & 0 & 3
+    \end{pmatrix} \\
+    R^{-1} \Omega R = \begin{pmatrix}
+        0 & 0 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & 2
+    \end{pmatrix}
+\end{align}
+
+
+\section{Shankar Basic Training: Problem  9.5.11 (page 265).}
+
+For reference:
+
+\begin{align}
+    S_x = \frac{1}{\sqrt{2}} \begin{pmatrix}
+        0 & 1 & 0 \\ 1 & 0 & 1 \\ 0 & 1 & 0
+    \end{pmatrix},
+    S_y = \frac{1}{\sqrt{2}} \begin{pmatrix}
+        0 & -i & 0 \\ i & 0 & i \\ 0 & i & 0
+    \end{pmatrix}
+    S_z = \begin{pmatrix}
+        1 & 0 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & -1
+    \end{pmatrix}
+\end{align}
+
+(a) The characteristics equation we can get by measuring in the z-direction is given by the eigenvalues of z. That is given by its characteristics equation: 
+
+\begin{align}
+    -(1-\lambda)(-1-\lambda)\lambda = 0 
+\end{align}
+
+The possible values are $\lambda = 1, -1, 0$
+
+(b) The possible values we can get by measuring in the x-direction is
+
+\begin{align}
+    -\lambda^3 + 2\lambda  = 0 
+\end{align}
+
+And the possible values for $x$ is $\lambda = \sqrt{2}, - \sqrt{2}, 0$
+
+the possible values we can find by measuring in the y-direction is $\lambda = 0$ by the characteristics equation of $-\lambda^3 = 0$
+
+(c) The largest possible value of $S_x$ is $\sqrt{2}$, that means that the corresponding eigenvector is given by the follow linear system represented by the augmented matrix, as we are trying to the nullspace of the matrix.
+
+\begin{align}
+    \begin{pmatrix}
+        -\sqrt{2} & 1 & 0 & 0 \\
+        1 & -\sqrt{2} & 1 & 0 \\
+        0 & 1 & -\sqrt{2} & 0
+    \end{pmatrix}
+\end{align}
+
+We can find that our eigenvector, or the nullspace of the matrix, is spanned by $\begin{pmatrix}
+    1 \\ \sqrt{2} \\ 1
+\end{pmatrix}$, normalizing, we obtain 
+\begin{align}
+    \ket{x} = \begin{pmatrix}
+    \frac{1}{2} \\ \frac{\sqrt{2}}{2} \\ \frac{1}{2}
+\end{pmatrix}
+\end{align}
+
+And that is our state vector immediately afterward.
+
+(d) The eigenvector for the outcomes of z is given by the following, recalling our eigenvalues from part (a):
+
+For eigenvalue $\lambda = 0$, we have to find the nullspace of 
+\begin{align}
+        S_z = \begin{pmatrix}
+        1 & 0 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & -1
+    \end{pmatrix}
+\end{align}
+
+and this clearly requires $x_1$ and $x_3$ to be 0 but $x_2$ could be free, so the nullspace is spanned by $\ket{z_0} = \begin{pmatrix}
+    0 \\ 1 \\ 0
+\end{pmatrix}$,which is also already normalized.
+
+For the eigenvalue of $\lambda = 1$, we have to find the nullspace of 
+\begin{align}
+    S_z - 1I= \begin{pmatrix}
+        0 & 0 & 0 \\ 0 & -1 & 0 \\  0 & 0 & -2
+    \end{pmatrix}
+\end{align}
+again, $x_1$ is free, so our eigenvector is $\Vec{z_1} = \begin{pmatrix}
+    1 \\ 0 \\ 0
+\end{pmatrix}$
+
+For the eigenvalue of $\lambda = -1$, our matrix would allow $x_3$ to be free, so our eigenvector is $\Vec{v_{-1}} = \begin{pmatrix}
+    0 \\ 0 \\ 1
+\end{pmatrix}$
+I am under the assumption that we are measuring immediately after we have got the largest possible value of $S_x$, and our state vector at this point is the eigenvector that we just obtained in part (c). We can see that, also, our eigenvectors are just unit vectors in $\mathbb{R}^3$, so to compute our probabilities, we have
+
+\begin{align}
+    \bra{z_0} \ket{x}^2 = \frac{\sqrt{2}}{2}^2 = \frac{1}{2} \\
+    \bra{z_1} \ket{x}^2= \frac{1}{2}^2 = \frac{1}{4} \\
+    \bra{z_{-1}} \ket{x}^2 = \frac{1}{2}^2 = \frac{1}{4}
+\end{align}
+
+which means that we have $\frac{1}{4}$ chance to get either $1$ or $-1$, and $\frac{1}{2}$ chance to get $0$. If we get the largest value, that is $1$, our state immediately after is the eigenvector $\ket{z_1} = \begin{pmatrix}
+    1 \\ 0 \\ 0
+\end{pmatrix}$
+and if we go back to measure $S_x$ with this state vector, the largest value of $S_x$ is given by $\ket{x_{\sqrt{2}}} = \begin{pmatrix}
+    \frac{1}{2} \\ \frac{1}{\sqrt{2}} \\ \frac{1}{2}
+\end{pmatrix}$, and the probability to obtain the largest value again is the dot product between the two vectors squared, which is, again $\frac{1}{4}$, so we are not guaranteed and only have a $\frac{1}{4}$ chance to get the biggest value in $S_x$ again.
+
+But if the question is asking, if we measure $S_x$ at once as in right after we obtain the maximum value in $S_x$, then the state vector and the eigenvector for the maximum value of $S_x$ are both $\ket{x_{\sqrt{2}}}$ and since it is normalized, their square of inner product will give $1$, so yes, if we measure immediately after measuring and obtaining the largest value in $S_x$, we would get the largest value again.
+
+(e) To compute $S^2$
+
+\begin{align}
+    S^2_x &= \begin{pmatrix}
+        1 & 0 & 1 \\ 0 & 2 & 0 \\ 1 & 0 & 1
+    \end{pmatrix}
+    S^2_y = \begin{pmatrix}
+        1 & 0 & 1 \\ 0 & 0 & 0 \\ -1 & 0 & -1
+    \end{pmatrix}
+    S^2_z = \begin{pmatrix}
+        1 & 0 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & 1
+    \end{pmatrix} \\
+    S^2 &= S^2_x + S^2_y + S^2_z = \begin{pmatrix}
+        3 & 0 & 2 \\ 0 & 2 & 0 \\ 0 & 0 & 1
+    \end{pmatrix}
+\end{align}
+
+The possible outcomes are the possible eigenvalues of $S^2$, which is given by
+
+\begin{align}
+    -(\lambda-1)(\lambda^2-5\lambda+6) = 0
+\end{align}
+
+which gives $\lambda = 1, 2, 3$ and that's our possible outcomes.
+
+(f) Since if $A$ and $B$ commute, $A$ and $C$ commute, $B$ and $C$ commute, then $AB$ and $C$ commute. While there probably are proofs that don't involve manually checking every scenario, I did not come up with it. I will also omit the detailed calculation. 
+
+First check whether $S_x S_y$ commute:
+
+\begin{align}
+    S_x S_y = \frac{1}{2}\begin{pmatrix}
+        i & 0 & i \\ 0 & 0 & 0 \\ i & 0 & i
+    \end{pmatrix}
+    S_y S_x = \frac{1}{2} \begin{pmatrix}
+        -i & 0 & -i \\ 0 & 2i & 0 \\ i & 0 & i
+    \end{pmatrix}
+\end{align}
+
+They do not commute.
+
+Check whether $S_y, S_z$ commute
+
+\begin{align}
+    S_z S_y = \frac{1}{\sqrt{6}}\begin{pmatrix}
+        0 & -i & 0 \\ 0 & 0 & 0 \\ 0 & -i & 0
+    \end{pmatrix}
+    S_y S_z = \frac{1}{\sqrt{6}}\begin{pmatrix}
+        0 & 0 & 0 \\ i & 0 & -i \\ 0 & 0 & 0
+    \end{pmatrix}
+\end{align}
+
+They do not commute.
+
+$S_x, S_z$ do not commute either. After further checking, $S^2, S_z$ commute, $S^2, S_x$ does not commute, $S^2, S_y$ does not commute. So the largest number is 2.
+
+(g) Normalizing $\ket{v'} = \begin{pmatrix}
+    1 \\ 2 \\ 3
+\end{pmatrix}$, we have $\ket{v} = \frac{1}{\sqrt{14}}\begin{pmatrix}
+    1 \\ 2 \\ 3
+\end{pmatrix}$. The odds of getting each possible value from $S_z$ is the inner product between the normalized state vector and the eigenvectors of $S_z$, so 
+
+\begin{align}
+    \bra{v}\ket{z_1}^2 = \frac{1}{14} \\
+    \bra{v}\ket{z_0}^2 = \frac{4}{14} \\
+    \bra{v}\ket{z_{-1}}^2 = \frac{9}{14}
+\end{align}
+
+The statistical weighted average of these values is given by
+
+\begin{align}
+    1 \frac{1}{14} + 0 \frac{4}{14} - 1\frac{9}{14} = -\frac{8}{14}
+\end{align}
+
+and we compute the expression $\bra{v}S_z\ket{v}$, we have
+
+\begin{align}
+        \bra{v}S_z\ket{v} &= \bra{v}\begin{pmatrix}
+            1 \frac{1}{\sqrt{14}} + 0 + 0 \\ 0 \\ -(-\frac{3}{\sqrt{14}})        \end{pmatrix} \\
+            &= \frac{1}{\sqrt{14}} \frac{1}{\sqrt{14}} - \frac{3}{\sqrt{14}} \frac{3}{\sqrt{14}} = -\frac{8}{14} 
+\end{align}
+
+And indeed, they are equal.
+
+\section{Additional Problem F1}
+
+\begin{proof}
+    We have the following:
+    \begin{align}
+        A \ket{v_i} = \lambda_i \ket{v_i} \\
+        A^\dagger \ket{u_i} = \lambda_i \ket{u_i} \\
+        \ket{u_i} \neq \ket{v_i}
+    \end{align}
+    and we have to show that $i\neq j \Rightarrow \bra{u_i}\ket{v_j} = 0$
+
+    Since \begin{align}
+        \bra{v_i} A^\dagger A \ket{v_i} &= \lambda_i \bra{v_i} A^\dagger \ket{v_i} \\ &= \lambda_i {\bra{v_i} A^\dagger \ket{v_i}^*}^* = \lambda_i \bra{v_i} A \ket{v_i}^* \\ &= \lambda_i \bra{v_i} \lambda_i \ket{v_i}^* = \lambda_i \lambda^*_i \bra{v_i} \ket{v_i}
+    \end{align}
+    and \begin{align}
+        \bra{v_i} A A^\dagger \ket{v_i} &= {\bra{v_i} A A^\dagger \ket{v_i}^*}^* = \bra{v_i} A^\dagger A \ket{v_i}^* \\ &= (\lambda_i \lambda^*_i \bra{v_i} \ket{v_i})^* = \lambda_i \lambda^*_i \bra{v_i} \ket{v_i}
+    \end{align}
+
+    and the two expression is equal. Therefore the two expression is equal. Therefore since for linear operators
+
+    \begin{align}
+        \bra{v_i}A^\dagger A - AA^\dagger \ket{v_i} &= \bra{v_i} A^\dagger \ket{v_i} - \bra{v_i} AA^\dagger \ket{v_i} = 0 \\
+        &\bra{v_i} A^\dagger A - AA^\dagger \ket{v_i} = 0 \\
+        &A^\dagger A - AA^\dagger = 0
+    \end{align}
+
+    we have shown that $A$ and $A^\dagger$ commute, and by the Spectral Theorem for normal vectors, they exists an orthonormal basis for $A$ and $A^\dagger$ by symmetry. This means that our sets of eigenvectors $\ket{v_i}$ and $\ket{u_i}$ CAN form an orthonormal basis. Since if we normalize our eigenvectors, they can be orthonormal, then the un-normalized versions that we have must still be orthogonal to each other.
+
+    Consider that
+    \begin{align}
+        \bra{u_i} \ket{v_j} = \bra{u_i} \omega \ket{v_i} \omega \bra{v_i} \ket{v_j} = \omega^2 \bra{u_i} \ket{v_i} 0 = 0
+    \end{align}
+
+    where $\omega$ is the scalar needed to normalize $\ket{v_i}$ so that we can use the completeness relation and add in the identity in the middle. Of course, the completeness relation in the middle require us to sum over all of i, and when $i$ = $j$, the orthogonal property of $\bra{v_i}\ket{v_i} \neq 0$ will give us something instead of $0$.
+    
+\end{proof}
+\end{document}
